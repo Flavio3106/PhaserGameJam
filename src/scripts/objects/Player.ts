@@ -17,7 +17,6 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
     this._scene = scene
     this._scene.physics.world.enableBody(this)
     this._rigidBody = <Phaser.Physics.Arcade.Body>this.body
-    this._rigidBody.setAllowGravity(false)
 
     //handlers
     this._inputController = InputController.getInstance(scene)
