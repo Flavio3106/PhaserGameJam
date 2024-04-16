@@ -6,11 +6,15 @@ import IBase from './IBase'
 export default interface IInteractable extends IBase {
   animationController: AnimationController
   inputController: InputController
-  position: {
+  sprite: Phaser.GameObjects.Sprite
+  text: Phaser.GameObjects.Text
+
+  pos: {
     x: number
     y: number
   }
   canInteract: boolean
+  interacting: boolean
   scene: Phaser.Scene
 
   onInteract(): void

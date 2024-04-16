@@ -6,6 +6,7 @@ export default class PreloadScene extends Phaser.Scene {
   preload() {
     this.load.image('bg-mountains', 'assets/img/bg-mountains.png')
     this.load.image('sheet', 'assets/img/sheet.png')
+    this.load.image('key-blue', 'assets/img/key-blue.png')
     this.load.spritesheet('player-spritesheet', 'assets/img/players.png', { frameWidth: 52, frameHeight: 70 })
   }
 
