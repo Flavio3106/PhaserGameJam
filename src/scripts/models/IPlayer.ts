@@ -1,6 +1,5 @@
-import IBase from './IBase'
-
-//interfaccia base del player
-export default interface IPlayer extends IBase {
+export default interface IPlayer {
   _createAnimations(): void
+  create(): void
+  update(time: number, delta: number): void
 }

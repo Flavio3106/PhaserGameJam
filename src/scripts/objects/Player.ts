@@ -1,10 +1,16 @@
 import AnimationController from '../controllers/AnimationController'
 import InputController from '../controllers/InputController'
 import IPlayer from '../models/IPlayer'
+import MainScene from '../scenes/mainScene'
+import Inventory from '../ui/Inventory'
 
 export default class Player extends Phaser.GameObjects.Sprite implements IPlayer {
   _playerAnimationHandler: AnimationController
   _inputController: InputController
+  _isInteracting: boolean = false
+  _reading: boolean = false
+  _inventory: Inventory
+  _mainScene: MainScene
 
   _scene: Phaser.Scene
   _rigidBody: Phaser.Physics.Arcade.Body
@@ -13,13 +19,15 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, Player._playerSpritesheet, 8)
+    this._mainScene = scene as MainScene
+    this._inputController = this._mainScene._inputController
 
     this._scene = scene
     this._scene.physics.world.enableBody(this)
     this._rigidBody = <Phaser.Physics.Arcade.Body>this.body
+    this._rigidBody.setAllowGravity(false)
+    this._inventory = new Inventory()
 
-    //handlers
-    this._inputController = InputController.getInstance(scene)
     this._playerAnimationHandler = new AnimationController(scene, this)
     this.create()
   }
@@ -30,6 +38,7 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
 
   create(): void {
     this._createAnimations()
+    this._scene.add.existing(this)
   }
 
   _createAnimations(): void {
@@ -49,8 +58,6 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
     this._playerAnimationHandler.setIdle('idle')
   }
   private move(): void {
-    this._inputController.getMovementInput()
-
     if (this._inputController.moveAmount > 0) {
       if (this._inputController.xVelocity >= 0) {
         this.setFlipX(false)

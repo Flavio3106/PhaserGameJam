@@ -4,7 +4,7 @@ import IReadableSource from '../../models/IReadableSource'
 //oggetto che si può leggere
 export default class ReadableSource implements IReadableSource {
   text: Phaser.GameObjects.Text //testo del leggibile
-  close: Phaser.GameObjects.Text //bottone per chiudere
+  closeButton: Phaser.GameObjects.Image //bottone per chiudere
   sheet: Phaser.GameObjects.Image //foglio
   container: Phaser.GameObjects.Container //container
   scene: Phaser.Scene //scena di appartenenza
@@ -12,7 +12,6 @@ export default class ReadableSource implements IReadableSource {
 
   constructor(scene: Phaser.Scene, text: string) {
     this.scene = scene
-    this.inputController = InputController.getInstance(scene)
     this.sheet = scene.add.image(0, 0, 'sheet')
     this.text = scene.add
       .text(0 - 90, -this.sheet.height / 2 + 40, text, {
@@ -25,18 +24,16 @@ export default class ReadableSource implements IReadableSource {
       this.sheet,
       this.text
     ])
-    this.close = scene.add
-      .text(this.sheet.width / 2 - 5, -this.sheet.height / 2 + 10, 'Chiudi[ESC]', { color: 'black', fontSize: '15px' })
+    this.closeButton = scene.add
+      .image(this.sheet.width / 2 - 5, -this.sheet.height / 2 + 10, 'close-button')
       .setOrigin(1, 0)
-    this.container.add(this.close)
+    this.container.add(this.closeButton)
     this.container.depth = 100
-    this.close.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-      this.hide()
-    })
+
+    this.hide()
   }
 
   update(time: number, delta: number): void {
-    this.inputController.getExitFlag()
     if (this.inputController.escPressed) {
       this.hide()
     }

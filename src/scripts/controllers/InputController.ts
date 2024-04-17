@@ -30,23 +30,15 @@ export default class InputController {
     return this._exit
   }
 
-  private constructor(scene: Phaser.Scene) {
+  constructor(scene: Phaser.Scene) {
     this._scene = scene
     this._cursors = this._scene.input.keyboard.createCursorKeys()
     this._eKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
     this._escKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC)
   }
 
-  //instanza del singleton
-  static getInstance(scene: Phaser.Scene) {
-    if (!InputController._instance) {
-      return new InputController(scene)
-    }
-    return InputController._instance
-  }
-
   //calcola gli input del movimento
-  getMovementInput(): void {
+  private getMovementInput(): void {
     if (this._cursors.right.isDown) {
       this._xVelocity = 1
     }
@@ -74,7 +66,7 @@ export default class InputController {
   }
 
   //controlla gli input di interazione
-  getInteractingFlag(): void {
+  private getInteractingFlag(): void {
     if (this._eKey.isDown) {
       this._isInteracting = true
     } else {
@@ -83,11 +75,17 @@ export default class InputController {
   }
 
   //controlla gli input di uscita da un menu
-  getExitFlag(): void {
+  private getExitFlag(): void {
     if (this._escKey.isDown) {
       this._exit = true
     } else {
       this._exit = false
     }
+  }
+
+  getAllInput(): void {
+    this.getMovementInput()
+    this.getInteractingFlag()
+    this.getExitFlag()
   }
 }
