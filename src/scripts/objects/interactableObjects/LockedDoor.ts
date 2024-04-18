@@ -1,8 +1,8 @@
 import Player from '../Player'
-import Interactable from './Interactable'
+import Interactible from './Interactable'
 import KeyInteractable from './KeyInteractable'
 
-export default class Door extends Interactable {
+export default class Door extends Interactible {
   key: KeyInteractable
   staticBody: Phaser.Physics.Arcade.StaticBody
   locked: boolean = true

@@ -25,9 +25,14 @@
     <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="./icons/icons-512.png" />
 
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="preload" as="font" href="assets/fonts/PixelifySans-VariableFont_wght.ttf" type="font/ttf" />
 
     <title><%= htmlWebpackPlugin.options.gameName %></title>
     <style>
+      @font-face {
+        font-family: Pixelify;
+        src: url('assets/fonts/PixelifySans-VariableFont_wght.ttf');
+      }
       html,
       body {
         height: 100%;

@@ -3,29 +3,28 @@ import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 import HUDScene from './scenes/HUDScene'
 
-const DEFAULT_WIDTH = 1024
-const DEFAULT_HEIGHT = 450
-
-const config = {
-  type: Phaser.AUTO,
-  backgroundColor: '#b2ffff',
-  scale: {
-    parent: 'phaser-game',
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: DEFAULT_WIDTH,
-    height: DEFAULT_HEIGHT
-  },
-  scene: [PreloadScene, MainScene, HUDScene],
-  physics: {
-    default: 'arcade',
-    arcade: {
-      debug: false,
-      gravity: { y: 400 }
-    }
-  }
-}
+const DEFAULT_WIDTH = 700
+const DEFAULT_HEIGHT = 400
 
 window.addEventListener('load', () => {
-  const game = new Phaser.Game(config)
+  const game = new Phaser.Game({
+    backgroundColor: '#1E1611',
+    type: Phaser.AUTO,
+    scale: {
+      parent: 'phaser-game',
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      height: DEFAULT_HEIGHT,
+      width: DEFAULT_WIDTH,
+      zoom: 4.5
+    },
+    scene: [PreloadScene, MainScene, HUDScene],
+
+    physics: {
+      default: 'arcade',
+      arcade: {
+        debug: true,
+        gravity: { y: 0 }
+      }
+    }
+  })
 })

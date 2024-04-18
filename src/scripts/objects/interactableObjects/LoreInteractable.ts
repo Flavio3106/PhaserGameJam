@@ -1,8 +1,8 @@
 import Player from '../Player'
 import Sheet from '../Readables/Sheet'
-import Interactable from './Interactable'
+import Interactible from './Interactable'
 
-export default class LoreInteractable extends Interactable {
+export default class LoreInteractable extends Interactible {
   sheet: Sheet
 
   constructor(scene: Phaser.Scene, x: number, y: number, player: Player) {

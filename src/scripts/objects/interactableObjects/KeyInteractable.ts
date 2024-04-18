@@ -1,17 +1,21 @@
 import Player from '../Player'
-import Interactable from './Interactable'
+import Interactible from './Interactable'
 
-export default class KeyInteractable extends Interactable {
+export default class KeyInteractable extends Interactible {
   constructor(scene: Phaser.Scene, x: number, y: number, player: Player) {
     super(scene, x, y, player, 'blue-key')
   }
   update(time: number, delta: number): void {
     super.update(time, delta)
     if (this.interacting) {
-      this.setPosition(
-        Phaser.Math.Interpolation.Linear([this.player.x, this.x], 0.9),
-        Phaser.Math.Interpolation.Linear([this.player.y - (this.player.height / 2 + 5), this.y], 0.9)
-      )
+      if (!(this.x === this.player.x && this.y === this.player.y - 10)) {
+        this.setPosition(
+          Phaser.Math.Interpolation.Linear([this.player.x, this.x], 0.9),
+          Phaser.Math.Interpolation.Linear([this.player.y - 10, this.y], 0.9)
+        )
+      } else {
+        this.setPosition(this.player.x, this.player.y - 10)
+      }
     }
   }
 

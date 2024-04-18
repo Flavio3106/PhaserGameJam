@@ -35,7 +35,6 @@ export default class AnimationController {
 
   //setta un'animazione da riprodurre nel caso in cui nessun'altra animazione sta venendo riprodotta
   setIdle(key: string) {
-    this.play(key)
     this.sprite.on('animationcomplete', () => {
       this.play(key)
     })
@@ -65,7 +64,10 @@ export default class AnimationController {
   }
 
   //riproduce un interazione, ovvero un'animazione che non si può interrompere, opzionalmente, si può decidere se immettere l'animazione in una coda
-  playInteraction(key: string, params: { addToQueue?: boolean; ignoreIfPlaying?: boolean }) {
+  playInteraction(key: string, params?: { addToQueue?: boolean; ignoreIfPlaying?: boolean }) {
+    if (!params) {
+      params = { addToQueue: false, ignoreIfPlaying: false }
+    }
     if (!this.isInteracting) {
       this._sprite.play(key, params.ignoreIfPlaying)
       this._isInteracting = true

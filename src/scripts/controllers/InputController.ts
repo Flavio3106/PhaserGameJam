@@ -4,11 +4,14 @@ export default class InputController {
   private _cursors: Phaser.Types.Input.Keyboard.CursorKeys //cursore freccette movimento
   private _eKey: Phaser.Input.Keyboard.Key //tasto E
   private _escKey: Phaser.Input.Keyboard.Key //tasto ESC
+  private _qKey: Phaser.Input.Keyboard.Key //tasto Q
+  private _mousePointer: Phaser.Input.Pointer //pointer mouse
 
   private _yVelocity: number //moltiplicatore della velocity x, -1: sopra, 0: fermo, 1: sotto
   private _xVelocity: number //moltiplicatore della velocity y, -1: sinistra, 0: fermo, 1: destra
   private _moveAmount: number //quantità di movimento, 0: fermo 1: in movimento in qualsiasi direzione
   private _isInteracting: boolean //flag, true se il player sta interagendo
+  private _isAttacking: boolean //flag, true se il player sta attaccando
   private _exit: boolean //flag, true se il player richiede l'uscita da un menu
 
   //getters
@@ -25,6 +28,9 @@ export default class InputController {
   get isInteracting() {
     return this._isInteracting
   }
+  get isAttacking() {
+    return this._isAttacking
+  }
 
   get escPressed() {
     return this._exit
@@ -35,6 +41,8 @@ export default class InputController {
     this._cursors = this._scene.input.keyboard.createCursorKeys()
     this._eKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
     this._escKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC)
+    this._qKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q)
+    this._mousePointer = scene.input.activePointer
   }
 
   //calcola gli input del movimento
@@ -73,6 +81,14 @@ export default class InputController {
       this._isInteracting = false
     }
   }
+  //controlla gli input di interazione
+  private getAttackingFlag(): void {
+    if (this._mousePointer.leftButtonDown()) {
+      this._isAttacking = true
+    } else {
+      this._isAttacking = false
+    }
+  }
 
   //controlla gli input di uscita da un menu
   private getExitFlag(): void {
@@ -87,5 +103,6 @@ export default class InputController {
     this.getMovementInput()
     this.getInteractingFlag()
     this.getExitFlag()
+    this.getAttackingFlag()
   }
 }

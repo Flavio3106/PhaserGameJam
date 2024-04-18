@@ -1,6 +1,6 @@
 import InputController from '../controllers/InputController'
 import Player from '../objects/Player'
-import Interactable from '../objects/interactableObjects/Interactable'
+import Interactible from '../objects/interactableObjects/Interactable'
 import KeyInteractable from '../objects/interactableObjects/KeyInteractable'
 import Door from '../objects/interactableObjects/LockedDoor'
 import LoreInteractable from '../objects/interactableObjects/LoreInteractable'
@@ -8,11 +8,7 @@ import LoreInteractable from '../objects/interactableObjects/LoreInteractable'
 export default class MainScene extends Phaser.Scene {
   _player: Player
   _mainCamera: Phaser.Cameras.Scene2D.Camera
-  _bg: Phaser.GameObjects.TileSprite
-  _key1: KeyInteractable
-  _key2: KeyInteractable
-  _lore: LoreInteractable
-  _door: Door
+
   _inputController: InputController
   constructor() {
     super({ key: 'MainScene' })
@@ -20,25 +16,100 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this._inputController = new InputController(this)
-    this.add.tileSprite(0, 0, 1024, 1024, 'bg-mountains').setOrigin(0, 0)
     this._mainCamera = this.cameras.main
     const cameraWidth = this._mainCamera.width
     const cameraHeight = this._mainCamera.height
 
-    this._player = new Player(this, cameraWidth / 2, cameraHeight / 2)
-    this._key1 = new KeyInteractable(this, 200, 100, this._player)
-    this._key2 = new KeyInteractable(this, 500, 100, this._player)
-    this._lore = new LoreInteractable(this, 50, 50, this._player)
-    this._door = new Door(this, 200, 200, this._player, this._key1)
+    this._player = new Player(this, 50, 400)
+
+    const map = this.make.tilemap({ key: 'house', tileWidth: 16, tileHeight: 16 })
+
+    const principale = map.addTilesetImage('principale')
+    const secondario = map.addTilesetImage('secondario')
+    const muri = map.addTilesetImage('muri')
+    const muri2 = map.addTilesetImage('muri2')
+    const FDR_Dungeon = map.addTilesetImage('FDR_Dungeon')
+    const TopDownHouse_FurnitureState1 = map.addTilesetImage('TopDownHouse_FurnitureState1')
+
+    const background = map.createLayer('Livello tile 1', [
+      principale,
+      secondario,
+      muri,
+      muri2,
+      FDR_Dungeon,
+      TopDownHouse_FurnitureState1
+    ])
+    const groundLayer = map.createLayer('pavimento', [
+      principale,
+      secondario,
+      muri,
+      muri2,
+      FDR_Dungeon,
+      TopDownHouse_FurnitureState1
+    ])
+    const wallsLayer = map.createLayer('muri', [
+      principale,
+      secondario,
+      muri,
+      muri2,
+      FDR_Dungeon,
+      TopDownHouse_FurnitureState1
+    ])
+    const scene = map.createLayer('scena', [
+      principale,
+      secondario,
+      muri,
+      muri2,
+      FDR_Dungeon,
+      TopDownHouse_FurnitureState1
+    ])
+    const scene2 = map.createLayer('scena2', [
+      principale,
+      secondario,
+      muri,
+      muri2,
+      FDR_Dungeon,
+      TopDownHouse_FurnitureState1
+    ])
+    const lights = map.createLayer('luci', [
+      principale,
+      secondario,
+      muri,
+      muri2,
+      FDR_Dungeon,
+      TopDownHouse_FurnitureState1
+    ])
+    const _scene = map.createLayer('scena', [
+      principale,
+      secondario,
+      muri,
+      muri2,
+      FDR_Dungeon,
+      TopDownHouse_FurnitureState1
+    ])
+
+    this.physics.world.setBounds(
+      0, //x
+      0, //y
+      map.widthInPixels, //width
+      map.heightInPixels //height
+    )
+
+    wallsLayer.setCollisionByProperty({ collides: true })
+    groundLayer.setCollisionByProperty({ collides: true })
+    scene.setCollisionByProperty({ collides: true })
+    scene2.setCollisionByProperty({ collides: true })
+    this.physics.add.collider(this._player, wallsLayer, (_player: any, _tile: any) => {}, undefined, this)
+    this.physics.add.collider(this._player, groundLayer, (_player: any, _tile: any) => {}, undefined, this)
+    this.physics.add.collider(this._player, scene, (_player: any, _tile: any) => {}, undefined, this)
+    this.physics.add.collider(this._player, scene2, (_player: any, _tile: any) => {}, undefined, this)
+
+    this._mainCamera.startFollow(this._player, true, 0.5, 0.5)
   }
 
   update(time: number, delta: number) {
     this._inputController.getAllInput()
 
     this._player.update(time, delta)
-    this._door.update(time, delta)
-    this._key1.update(time, delta)
-    this._key2.update(time, delta)
-    this._lore.update(time, delta)
   }
 }

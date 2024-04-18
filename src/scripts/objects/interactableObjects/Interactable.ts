@@ -28,15 +28,18 @@ export default class Interactable extends Phaser.GameObjects.Sprite implements I
   create(): void {
     this.animationController = new AnimationController(this.scene, this)
 
-    this.text = this.scene.add.text(this.x, this.y - (this.height / 2 + 20), 'Interagisci[E]', {
-      color: 'black',
-      fontSize: '12px'
-    })
+    this.text = this.scene.add
+      .text(this.x, this.y - (this.height / 2 + 20), 'Interagisci[E]', {
+        color: 'black',
+        fontSize: 'px',
+        fontFamily: 'Pixelify'
+      })
+      .setDepth(5)
 
     this.text.x -= this.text.width / 2
     this.text.alpha = 0
 
-    this.scene.add.existing(this)
+    this.scene.add.existing(this).setDepth(4)
   }
 
   update(time: number, delta: number): void {
