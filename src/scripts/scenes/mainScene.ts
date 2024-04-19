@@ -1,6 +1,7 @@
 import InputController from '../controllers/InputController'
 import Skeleton from '../objects/characters/enemy/Skeleton'
 import Player from '../objects/characters/player/Player'
+import Chest from '../objects/interactableObjects/Chest'
 import Interactible from '../objects/interactableObjects/Interactable'
 import KeyInteractable from '../objects/interactableObjects/KeyInteractable'
 import Door from '../objects/interactableObjects/LockedDoor'
@@ -11,6 +12,9 @@ export default class MainScene extends Phaser.Scene {
   _skeleton: Skeleton
   _mainCamera: Phaser.Cameras.Scene2D.Camera
   _map: Phaser.Tilemaps.Tilemap
+  _chestGroup: Phaser.GameObjects.Group
+  _skeletonGroup: Phaser.GameObjects.Group
+  player_initial_position: string = 'player_initial_position'
 
   _inputController: InputController
   constructor() {
@@ -23,14 +27,44 @@ export default class MainScene extends Phaser.Scene {
     const cameraWidth = this._mainCamera.width
     const cameraHeight = this._mainCamera.height
     this._map = this.make.tilemap({ key: 'house', tileWidth: 16, tileHeight: 16 })
+    //this._map = this.make.tilemap({ key: 'dungeon', tileWidth: 16, tileHeight: 16 })
+    /*const dungeonTileset = this._map.addTilesetImage('dungeon')
 
-    this._player = new Player(this, this._map.widthInPixels / 2, this._map.widthInPixels / 2)
-    this._skeleton = new Skeleton(
-      this,
-      this._map.widthInPixels / 2 - 50,
-      this._map.widthInPixels / 2 - 50,
-      this._player
-    )
+    const background = this._map.createLayer('background', dungeonTileset)
+    const walls = this._map.createLayer('walls', dungeonTileset)
+    const ground = this._map.createLayer('ground', dungeonTileset)
+    const chests = this._map.getObjectLayer('chests')
+    const characters = this._map.getObjectLayer('characters')
+
+    characters.objects.forEach(character => {
+      if (character.name === this.player_initial_position) {
+        this._player = new Player(this, character.x! - character.width! / 2, character.y! - character.height! / 2)
+      }
+    })*/
+
+    this._player = new Player(this, 125, 830)
+    this._skeleton = new Skeleton(this, this._player.x + 50, this._player.y, this._player)
+    this._skeleton.addPoints([
+      { x: this._player.x + 50, y: this._player.y },
+      { x: this._player.x + 100, y: this._player.y },
+      { x: this._player.x + 100, y: this._player.y - 200 },
+      { x: this._player.x + 100, y: this._player.y },
+      { x: this._player.x + 50, y: this._player.y }
+    ])
+    this._skeletonGroup = this.add.group()
+    this._skeletonGroup.add(this._skeleton)
+
+    this._chestGroup = this.add.group()
+    /*chests.objects.forEach(chest => {
+      const chestObj = new Chest(this, chest.x! - chest.width! / 2, chest.y! - chest.height! / 2, this._player)
+
+      this._chestGroup.add(chestObj)
+      this.physics.add.collider(chestObj, this._player, (chest, player) => {})
+    })
+
+    walls.setCollisionByProperty({ collides: true })
+
+    this.physics.add.collider(this._player, walls, (player: any, walls: any) => {}, undefined, this)*/
 
     const VictorianInteriors = this._map.addTilesetImage('VictorianInteriors')
     const floorsandwalls = this._map.addTilesetImage('floorsandwalls')
@@ -110,8 +144,12 @@ export default class MainScene extends Phaser.Scene {
 
   update(time: number, delta: number) {
     this._inputController.getAllInput()
-
     this._player.update(time, delta)
-    this._skeleton.update(time, delta)
+    this._chestGroup.children.entries.forEach(chest => {
+      chest.update()
+    })
+    this._skeletonGroup.children.entries.forEach(skeleton => {
+      skeleton.update(time, delta)
+    })
   }
 }

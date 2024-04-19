@@ -3,10 +3,13 @@ import IEnemy from '../../../models/IEnemy'
 import MainScene from '../../../scenes/mainScene'
 import Player from '../player/Player'
 
-export default class Enemy extends Phaser.GameObjects.Sprite implements IEnemy {
+export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnemy {
   animationController: AnimationController
   player: Player
   mainScene: MainScene
+  rigidBody: Phaser.Physics.Arcade.Body
+  dead: boolean = false
+  deadAnimationFinished: boolean = false
   private wayPoints: { x: number; y: number }[] = []
   canGo: boolean = true
 
@@ -15,25 +18,50 @@ export default class Enemy extends Phaser.GameObjects.Sprite implements IEnemy {
     this.player = player
     this.mainScene = scene as MainScene
     this.animationController = new AnimationController(scene, this)
+    this.scene.physics.world.enableBody(this)
+    this.rigidBody = <Phaser.Physics.Arcade.Body>this.body
+
     const mapW = this.mainScene._map.widthInPixels,
       mapH = this.mainScene._map.heightInPixels
-    this.wayPoints = [
-      { x: mapW / 2 - 50, y: mapH / 2 - 50 },
-      { x: mapW / 2 - 100, y: mapH / 2 - 75 }
-    ]
+    this.wayPoints = []
+    this.scene.add.existing(this).setDepth(4)
+    this.scene.physics.add.overlap(player._sword, this, (sword, skeleton) => {
+      this.die()
+    })
+    this.scene.physics.add.collider(player, this, () => {
+      player.takeDamage()
+    })
+
+    this.rigidBody.setImmovable()
   }
 
   create(): void {}
 
   update(time: number, delta: number): void {}
 
+  die(): void {
+    this.dead = true
+    this.rigidBody.setEnable(false)
+  }
+
+  dealDamage(): void {}
+
   patrol(): void {
     if (this.wayPoints.length === 0) return
 
     let index = 0 // Indice del punto attuale
-
     const moveNext = () => {
+      if (this.dead) {
+        if (!this.deadAnimationFinished) {
+          this.scene.tweens.killAll()
+          this.animationController.play('dead', { ignoreIfPlaying: true })
+          this.deadAnimationFinished = true
+        }
+        return
+      }
+
       if (this.canGo) {
+        if (this.dead) return
         const currentPoint = this.wayPoints[index]
         const nextIndex = (index + 1) % this.wayPoints.length
         const nextPoint = this.wayPoints[nextIndex]

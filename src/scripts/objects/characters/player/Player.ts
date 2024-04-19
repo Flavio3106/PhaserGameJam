@@ -15,6 +15,9 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
   _facingDirection: string = 'down'
   _defaultBodySize = { width: 0, height: 0 }
 
+  _sword: Phaser.GameObjects.Sprite
+  _swordRigidBody: Phaser.Physics.Arcade.Body
+
   _alreadyAttacked: boolean = false
 
   _scene: Phaser.Scene
@@ -40,6 +43,7 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
 
   update(time: number, delta: number): void {
     this.move()
+    this.sword()
 
     if (this._inputController.isAttacking) {
       this.attack()
@@ -48,6 +52,14 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
 
   create(): void {
     this._scene.add.existing(this).setDepth(5)
+    //sword
+    this._sword = this.scene.add.sprite(this.x, this.y, Player._playerIdleSuffixKey + 'down', 0).setAlpha(0)
+    this.scene.physics.world.enableBody(this._sword)
+    this._swordRigidBody = <Phaser.Physics.Arcade.Body>this._sword.body
+
+    this._swordRigidBody.setSize(this._rigidBody.width / 1.5, this._rigidBody.height)
+    this._swordRigidBody.setOffset(5, 0)
+
     this._rigidBody.setSize(this._rigidBody.width / 1.5, this._rigidBody.height)
     this._rigidBody.setOffset(5, 0)
     this._createAnimations()
@@ -59,10 +71,12 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
     this.on('animationcomplete', (animation: Phaser.Animations.Animation) => {
       const animSuffix = animation.key.split('-')[0]
       if (animSuffix === 'attack') {
-        this._rigidBody.setSize(this._defaultBodySize.width, this._defaultBodySize.height)
-        this._rigidBody.setOffset(5, 0)
+        this._swordRigidBody.setSize(this._defaultBodySize.width, this._defaultBodySize.height)
+        this._swordRigidBody.setOffset(5, 0)
+        this._swordRigidBody.setEnable(false)
       }
     })
+    this._swordRigidBody.setEnable(false)
   }
 
   _createAnimations(): void {
@@ -181,6 +195,7 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
       yoyo: false
     })
   }
+
   private move(): void {
     if (this._inputController.moveAmount > 0) {
       if (this._inputController.xVelocity > 0) {
@@ -214,21 +229,28 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
     }
   }
 
+  private sword(): void {
+    this._sword.setPosition(this.x, this.y)
+  }
+
+  takeDamage(): void {}
+
   private attack(): void {
     if (!this._alreadyAttacked) {
+      this._swordRigidBody.setEnable()
       this._playerAnimationHandler.playInteraction(`attack-${this._facingDirection}`)
       if (this._facingDirection === 'down') {
-        this._rigidBody.setSize(this._defaultBodySize.width, this._defaultBodySize.height + 10)
-        this._rigidBody.setOffset(5, 0)
+        this._swordRigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height + 15)
+        this._swordRigidBody.setOffset(0, 0)
       } else if (this._facingDirection === 'left') {
-        this._rigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height)
-        this._rigidBody.setOffset(-5, 0)
+        this._swordRigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height + 10)
+        this._swordRigidBody.setOffset(-5, -5)
       } else if (this._facingDirection === 'right') {
-        this._rigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height)
-        this._rigidBody.setOffset(5, 0)
+        this._swordRigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height + 10)
+        this._swordRigidBody.setOffset(5, -5)
       } else if (this._facingDirection === 'up') {
-        this._rigidBody.setSize(this._defaultBodySize.width, this._defaultBodySize.height + 10)
-        this._rigidBody.setOffset(5, -10)
+        this._swordRigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height + 15)
+        this._swordRigidBody.setOffset(0, -15)
       }
       this._alreadyAttacked = true
       setTimeout(() => {
