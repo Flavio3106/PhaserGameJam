@@ -16,15 +16,16 @@ window.addEventListener('load', () => {
       autoCenter: Phaser.Scale.CENTER_BOTH,
       height: DEFAULT_HEIGHT,
       width: DEFAULT_WIDTH,
-      zoom:1.5,
-      mode:Phaser.Scale.ScaleModes.FIT 
+      mode: Scale.FIT,
+      zoom: 2
     },
     scene: [PreloadScene, MainScene, HUDScene],
-    antialias:true,
+
     physics: {
       default: 'arcade',
       arcade: {
-        debug: true,
+        debug: false,
+
         gravity: { y: 0 }
       }
     }

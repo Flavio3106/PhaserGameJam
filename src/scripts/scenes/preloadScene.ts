@@ -24,19 +24,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('door', 'assets/img/door.png')
     this.load.image('blue-key', 'assets/img/key-blue.png')
 
-    //hearts loading 
-    this.load.spritesheet('heartSprite', 'assets/spritesheets/Hearts/PNG/animated/border/borderHeart.png', {
-      frameWidth: 17,
-      frameHeight: 17
-    })
+    //*chest
+    this.load.image('chest', 'assets/img/chest.png')
 
-    this.load.spritesheet('bauxiteCounterIcon', '/assets/spritesheets/Bauxite/minerals.png', {
-      frameWidth:16,
-      frameHeight: 16,
-      startFrame:1,
-      endFrame: 8
-    })
-
+    //*chest audio
+    this.load.audio('chest-open', 'assets/audio/chests/01_chest_open_1.wav')
 
     //*bauxite icon
     this.load.spritesheet('minerals', 'assets/spritesheets/Bauxite/minerals.png', { frameWidth: 16 })
@@ -129,6 +121,10 @@ export default class PreloadScene extends Phaser.Scene {
       frameWidth: 18,
       frameHeight: 33,
       spacing: 4
+    })
+    this.load.spritesheet('s-dead', 'assets/spritesheets/Skeleton-enemy/Skeleton Dead.png', {
+      frameWidth: 33,
+      frameHeight: 32
     })
   }
 
