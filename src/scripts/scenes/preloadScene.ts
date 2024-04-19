@@ -25,6 +25,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('blue-key', 'assets/img/key-blue.png')
 
     //hearts loading
+    //hearts loading
     this.load.spritesheet('heartSprite', 'assets/spritesheets/Hearts/PNG/animated/border/borderHeart.png', {
       frameWidth: 17,
       frameHeight: 17
@@ -117,6 +118,22 @@ export default class PreloadScene extends Phaser.Scene {
       frameHeight: 24,
       margin: 8,
       spacing: 16
+    })
+
+    //*skeleton
+
+    this.load.spritesheet('s-idle', 'assets/spritesheets/Skeleton-enemy/Skeleton Idle.png', {
+      frameWidth: 24,
+      frameHeight: 32
+    })
+    this.load.spritesheet('s-run', 'assets/spritesheets/Skeleton-enemy/Skeleton Walk.png', {
+      frameWidth: 18,
+      frameHeight: 33,
+      spacing: 4
+    })
+    this.load.spritesheet('s-dead', 'assets/spritesheets/Skeleton-enemy/Skeleton Dead.png', {
+      frameWidth: 33,
+      frameHeight: 32
     })
   }
 

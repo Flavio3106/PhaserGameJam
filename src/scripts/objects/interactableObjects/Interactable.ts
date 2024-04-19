@@ -10,6 +10,8 @@ export default class Interactable extends Phaser.GameObjects.Sprite implements I
   inputController: InputController
   mainScene: MainScene
   text: Phaser.GameObjects.Text
+  minDistance: number = 25
+  rigidBody: Phaser.Physics.Arcade.Body
 
   interacting: boolean = false
 
@@ -28,10 +30,13 @@ export default class Interactable extends Phaser.GameObjects.Sprite implements I
   create(): void {
     this.animationController = new AnimationController(this.scene, this)
 
+    this.scene.physics.world.enableBody(this)
+    this.rigidBody = <Phaser.Physics.Arcade.Body>this.body
+
     this.text = this.scene.add
-      .text(this.x, this.y - (this.height / 2 + 20), 'Interagisci[E]', {
+      .text(this.x, this.y - 1, 'Interagisci[E]', {
         color: 'black',
-        fontSize: 'px',
+        fontSize: '10px',
         fontFamily: 'Pixelify'
       })
       .setDepth(5)
@@ -47,7 +52,7 @@ export default class Interactable extends Phaser.GameObjects.Sprite implements I
     this.text.alpha = 0
     this.canInteract = false
 
-    if (this.getDistanceToPlayer() < 100 && !this.player._isInteracting) {
+    if (this.getDistanceToPlayer() < this.minDistance && !this.player._isInteracting) {
       this.canInteract = true
     }
     if (this.canInteract) {
