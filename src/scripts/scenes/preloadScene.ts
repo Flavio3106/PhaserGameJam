@@ -24,6 +24,20 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('door', 'assets/img/door.png')
     this.load.image('blue-key', 'assets/img/key-blue.png')
 
+    //hearts loading 
+    this.load.spritesheet('heartSprite', 'assets/spritesheets/Hearts/PNG/animated/border/borderHeart.png', {
+      frameWidth: 17,
+      frameHeight: 17
+    })
+
+    this.load.spritesheet('bauxiteCounterIcon', '/assets/spritesheets/Bauxite/minerals.png', {
+      frameWidth:16,
+      frameHeight: 16,
+      startFrame:1,
+      endFrame: 8
+    })
+
+
     //*bauxite icon
     this.load.spritesheet('minerals', 'assets/spritesheets/Bauxite/minerals.png', { frameWidth: 16 })
 

@@ -11,7 +11,7 @@ export default class MainScene extends Phaser.Scene {
   _skeleton: Skeleton
   _mainCamera: Phaser.Cameras.Scene2D.Camera
   _map: Phaser.Tilemaps.Tilemap
-
+  
   _inputController: InputController
   constructor() {
     super({ key: 'MainScene' })
@@ -105,7 +105,13 @@ export default class MainScene extends Phaser.Scene {
     this.physics.add.collider(this._player, pavimento, (_player: any, _tile: any) => {}, undefined, this)
     this.physics.add.collider(this._player, sfondo, (_player: any, _tile: any) => {}, undefined, this)
 
-    this._mainCamera.startFollow(this._player, true, 0.5, 0.5)
+    
+    this._mainCamera.startFollow(this._player, true, 0.5,0.5)
+
+    
+    
+    
+
   }
 
   update(time: number, delta: number) {
