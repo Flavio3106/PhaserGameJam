@@ -1,8 +1,8 @@
-import AnimationController from '../../../controllers/AnimationController'
-import InputController from '../../../controllers/InputController'
-import IPlayer from '../../../models/IPlayer'
-import MainScene from '../../../scenes/mainScene'
-import Inventory from '../../../ui/Inventory'
+import AnimationController from '../controllers/AnimationController'
+import InputController from '../controllers/InputController'
+import IPlayer from '../models/IPlayer'
+import MainScene from '../scenes/mainScene'
+import Inventory from '../ui/Inventory'
 
 export default class Player extends Phaser.GameObjects.Sprite implements IPlayer {
   _playerAnimationHandler: AnimationController

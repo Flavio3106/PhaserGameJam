@@ -39,7 +39,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "kaboom": "^3000.1.17",
     "phaser": "^3.55.2"
   },
   "devDependencies": {

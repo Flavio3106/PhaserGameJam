@@ -4,8 +4,13 @@ import PreloadScene from './scenes/preloadScene'
 import HUDScene from './scenes/HUDScene'
 import { Scale } from 'phaser'
 
+<<<<<<< HEAD
 const DEFAULT_WIDTH = 400
 const DEFAULT_HEIGHT = 200
+=======
+const DEFAULT_WIDTH = 700
+const DEFAULT_HEIGHT = 400
+>>>>>>> parent of 076749e (Enemy patrol (da ottimizzare))
 
 window.addEventListener('load', () => {
   const game = new Phaser.Game({
