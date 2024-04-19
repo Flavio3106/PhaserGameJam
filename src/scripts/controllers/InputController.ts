@@ -4,7 +4,7 @@ export default class InputController {
   private _cursors: Phaser.Types.Input.Keyboard.CursorKeys //cursore freccette movimento
   private _eKey: Phaser.Input.Keyboard.Key //tasto E
   private _escKey: Phaser.Input.Keyboard.Key //tasto ESC
-  private _qKey: Phaser.Input.Keyboard.Key //tasto Q
+  private _spaceKey: Phaser.Input.Keyboard.Key //tasto SPACE
   private _mousePointer: Phaser.Input.Pointer //pointer mouse
 
   private _yVelocity: number //moltiplicatore della velocity x, -1: sopra, 0: fermo, 1: sotto
@@ -41,7 +41,7 @@ export default class InputController {
     this._cursors = this._scene.input.keyboard.createCursorKeys()
     this._eKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
     this._escKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC)
-    this._qKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q)
+    this._spaceKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
     this._mousePointer = scene.input.activePointer
   }
 
@@ -83,7 +83,7 @@ export default class InputController {
   }
   //controlla gli input di interazione
   private getAttackingFlag(): void {
-    if (this._mousePointer.leftButtonDown()) {
+    if (this._spaceKey.isDown) {
       this._isAttacking = true
     } else {
       this._isAttacking = false

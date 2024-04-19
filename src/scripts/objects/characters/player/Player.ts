@@ -195,7 +195,6 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
       yoyo: false
     })
   }
-
   private move(): void {
     if (this._inputController.moveAmount > 0) {
       if (this._inputController.xVelocity > 0) {

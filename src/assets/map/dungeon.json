@@ -40,6 +40,36 @@
     },
     {
       "data": [
+        0, 0, 0, 1, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 2, 3, 4, 2, 3, 4, 5, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0,
+        0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        36, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 6, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0,
+        0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 41, 42, 43, 44, 42, 43, 44, 42,
+        43, 42, 43, 44, 42, 43, 44, 45, 42, 43, 42, 42, 43, 44, 45, 46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ],
+      "height": 20,
+      "id": 2,
+      "name": "walls",
+      "opacity": 1,
+      "type": "tilelayer",
+      "visible": true,
+      "width": 30,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "data": [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 13,
         14, 13, 14, 13, 14, 24, 24, 13, 14, 13, 14, 13, 14, 13, 14, 13, 14, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 22, 23,
         24, 23, 24, 23, 24, 24, 24, 24, 24, 24, 24, 23, 24, 23, 24, 23, 24, 23, 24, 25, 0, 0, 0, 0, 0, 0, 0, 0, 22, 23,
@@ -70,180 +100,11 @@
       "width": 30,
       "x": 0,
       "y": 0
-    },
-    {
-      "data": [
-        0, 0, 0, 1, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 2, 3, 4, 2, 3, 4, 5, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0,
-        0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 1, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        36, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 6, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0,
-        0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 41, 42, 43, 44, 42, 43, 44, 42,
-        43, 42, 43, 44, 42, 43, 44, 45, 42, 43, 42, 42, 43, 44, 45, 46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      ],
-      "height": 20,
-      "id": 1,
-      "name": "Walls",
-      "opacity": 1,
-      "type": "tilelayer",
-      "visible": true,
-      "width": 30,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "draworder": "topdown",
-      "id": 5,
-      "name": "characters",
-      "objects": [
-        {
-          "gid": 87,
-          "height": 16,
-          "id": 8,
-          "name": "player_initial_position",
-          "rotation": 0,
-          "type": "",
-          "visible": true,
-          "width": 16,
-          "x": 341.5,
-          "y": 218
-        },
-        {
-          "gid": 87,
-          "height": 16,
-          "id": 9,
-          "name": "s1_waypoint_1",
-          "rotation": 0,
-          "type": "",
-          "visible": true,
-          "width": 16,
-          "x": 176.5,
-          "y": 63.5
-        },
-        {
-          "gid": 87,
-          "height": 16,
-          "id": 10,
-          "name": "s_waypoint_2",
-          "rotation": 0,
-          "type": "",
-          "visible": true,
-          "width": 16,
-          "x": 290,
-          "y": 82.5
-        },
-        {
-          "gid": 87,
-          "height": 16,
-          "id": 11,
-          "name": "s1_waypoint_3",
-          "rotation": 0,
-          "type": "",
-          "visible": true,
-          "width": 16,
-          "x": 268,
-          "y": 128
-        }
-      ],
-      "opacity": 1,
-      "type": "objectgroup",
-      "visible": true,
-      "x": 0,
-      "y": 0
-    },
-    {
-      "draworder": "topdown",
-      "id": 4,
-      "name": "chests",
-      "objects": [
-        {
-          "gid": 85,
-          "height": 16,
-          "id": 1,
-          "name": "chest2",
-          "rotation": 0,
-          "type": "Chest",
-          "visible": true,
-          "width": 16,
-          "x": 273,
-          "y": 30
-        },
-        {
-          "gid": 85,
-          "height": 16,
-          "id": 3,
-          "name": "chest1",
-          "rotation": 0,
-          "type": "Chest",
-          "visible": true,
-          "width": 16,
-          "x": 117,
-          "y": 94
-        },
-        {
-          "gid": 85,
-          "height": 16,
-          "id": 5,
-          "name": "",
-          "rotation": 0,
-          "type": "",
-          "visible": true,
-          "width": 16,
-          "x": 331.5,
-          "y": 152
-        },
-        {
-          "gid": 85,
-          "height": 16,
-          "id": 6,
-          "name": "",
-          "rotation": 0,
-          "type": "",
-          "visible": true,
-          "width": 16,
-          "x": 242,
-          "y": 206.5
-        },
-        {
-          "gid": 85,
-          "height": 16,
-          "id": 7,
-          "name": "",
-          "rotation": 0,
-          "type": "",
-          "visible": true,
-          "width": 16,
-          "x": 211,
-          "y": 139.5
-        }
-      ],
-      "opacity": 1,
-      "type": "objectgroup",
-      "visible": true,
-      "x": 0,
-      "y": 0
     }
   ],
-  "nextlayerid": 6,
-  "nextobjectid": 12,
+  "nextlayerid": 4,
+  "nextobjectid": 1,
   "orientation": "orthogonal",
-  "properties": [
-    {
-      "name": "collides",
-      "type": "bool",
-      "value": false
-    }
-  ],
   "renderorder": "right-down",
   "tiledversion": "1.10.2",
   "tileheight": 16,
@@ -251,7 +112,7 @@
     {
       "columns": 10,
       "firstgid": 1,
-      "image": "algoritmi/02ScuolaBrutta/00PhaserGame/first_test/phaser-template/src/assets/tiles/dungeon-tileset.png",
+      "image": "../tiles/dungeon-tileset.png",
       "imageheight": 160,
       "imagewidth": 160,
       "margin": 0,
@@ -321,12 +182,92 @@
           ]
         },
         {
+          "id": 6,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
           "id": 10,
           "properties": [
             {
               "name": "collides",
               "type": "bool",
               "value": true
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
             }
           ]
         },
@@ -341,12 +282,92 @@
           ]
         },
         {
+          "id": 16,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
           "id": 20,
           "properties": [
             {
               "name": "collides",
               "type": "bool",
               "value": true
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
             }
           ]
         },
@@ -361,6 +382,47 @@
           ]
         },
         {
+          "id": 26,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+
+        {
           "id": 30,
           "properties": [
             {
@@ -371,12 +433,92 @@
           ]
         },
         {
+          "id": 31,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
           "id": 35,
           "properties": [
             {
               "name": "collides",
               "type": "bool",
               "value": true
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
             }
           ]
         },
@@ -437,6 +579,46 @@
               "name": "collides",
               "type": "bool",
               "value": true
+            }
+          ]
+        },
+        {
+          "id": 46,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 47,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 48,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 49,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": false
             }
           ]
         },
@@ -787,7 +969,7 @@
             {
               "name": "collides",
               "type": "bool",
-              "value": true
+              "value": false
             }
           ]
         },
