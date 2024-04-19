@@ -16,13 +16,20 @@ export default class PreloadScene extends Phaser.Scene {
     //*tilemap
     //this.load.tilemapTiledJSON('dungeon', 'assets/map/dungeon.json')
     this.load.tilemapTiledJSON('house', 'assets/map/house.json')
+    this.load.tilemapTiledJSON('catacombs', 'assets/map/LastCave.json')
 
+    //casa
     this.load.image('dungeon', 'assets/tiles/dungeon-tileset.png')
-    this.load.image('sheet', 'assets/img/sheet.png')
-    this.load.image('sheet-icon', 'assets/img/sheet-icon.png')
     this.load.image('close-button', 'assets/img/close-button.png')
-    this.load.image('door', 'assets/img/door.png')
-    this.load.image('blue-key', 'assets/img/key-blue.png')
+
+    //catacombe
+    this.load.image('Tiled1', 'assets/tiles/TilesetUtilizzati/Dungeon_Tileset.png')
+    this.load.image('Tiled2', 'assets/tiles/TilesetUtilizzati/FDR_Dungeon.png')
+    this.load.image('Tiled3', 'assets/tiles/TilesetUtilizzati/decorative.png')
+    this.load.image('Tiled4', 'assets/tiles/TilesetUtilizzati/Props.png')
+    this.load.image('Tiled5', 'assets/tiles/TilesetUtilizzati/Dungeon Tile Set.png')
+    this.load.image('Tiled6', 'assets/tiles/TilesetUtilizzati/Skull 004 16x161.png')
+    this.load.image('Tiled7', 'assets/tiles/TilesetUtilizzati/Skulls(SpriteShee)(Dark outline1.png')
 
     //*chest
     this.load.image('chest', 'assets/img/chest.png')
@@ -34,7 +41,10 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.spritesheet('minerals', 'assets/spritesheets/Bauxite/minerals.png', { frameWidth: 16 })
 
     //*heart icon
-    this.load.spritesheet('heartsprite', '/assets/spritesheets/hearts/heart_animated_1.png', {frameWidth:17})
+    this.load.spritesheet('heartsprite', '/assets/spritesheets/hearts/heart_animated_1.png', { frameWidth: 17 })
+
+    //*inventory
+    this.load.image('inventory-slot', 'assets/spritesheets/ui/inventory-slot.png')
 
     //--------------------------------------
     //*----------------player----------------

@@ -24,8 +24,7 @@ window.addEventListener('load', () => {
     physics: {
       default: 'arcade',
       arcade: {
-        debug: false,
-
+        debug: true,
         gravity: { y: 0 }
       }
     }

@@ -21,14 +21,12 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
     this.scene.physics.world.enableBody(this)
     this.rigidBody = <Phaser.Physics.Arcade.Body>this.body
 
-    const mapW = this.mainScene._map.widthInPixels,
-      mapH = this.mainScene._map.heightInPixels
     this.wayPoints = []
     this.scene.add.existing(this).setDepth(4)
     this.scene.physics.add.overlap(player._sword, this, (sword, skeleton) => {
       this.die()
     })
-    this.scene.physics.add.collider(player, this, () => {
+    this.scene.physics.add.collider(player, this, (playerObj, skeletonObj) => {
       player.takeDamage()
     })
 
@@ -67,10 +65,13 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
         const nextPoint = this.wayPoints[nextIndex]
         const distance = Phaser.Math.Distance.Between(currentPoint.x, currentPoint.y, nextPoint.x, nextPoint.y)
         const duration = distance * 50
-        const delay = 3000
+        const delay = 500
         let flipX: boolean = false
+        this.rigidBody.setOffset(5, 5)
+
         if (currentPoint.x > nextPoint.x) {
           flipX = true
+          this.rigidBody.setOffset(10, 5)
         }
 
         this.scene.tweens.add({

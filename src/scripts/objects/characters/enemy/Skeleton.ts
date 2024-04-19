@@ -8,6 +8,8 @@ export default class Skeleton extends Enemy {
 
   constructor(scene: Phaser.Scene, x: number, y: number, player: Player) {
     super(scene, x, y, 's-idle', player, 0)
+    this.rigidBody.setSize(this.rigidBody.width - 15, this.rigidBody.height - 10)
+    this.rigidBody.setOffset(5, 5)
     this.create()
   }
 

@@ -14,6 +14,9 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
   _speed: number = 50
   _facingDirection: string = 'down'
   _defaultBodySize = { width: 0, height: 0 }
+  _maxHearts: number = 5
+  _hearts: number = this._maxHearts
+  _eventEmitter: Phaser.Events.EventEmitter
 
   _sword: Phaser.GameObjects.Sprite
   _swordRigidBody: Phaser.Physics.Arcade.Body
@@ -57,11 +60,8 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
     this.scene.physics.world.enableBody(this._sword)
     this._swordRigidBody = <Phaser.Physics.Arcade.Body>this._sword.body
 
-    this._swordRigidBody.setSize(this._rigidBody.width / 1.5, this._rigidBody.height)
-    this._swordRigidBody.setOffset(5, 0)
-
-    this._rigidBody.setSize(this._rigidBody.width / 1.5, this._rigidBody.height)
-    this._rigidBody.setOffset(5, 0)
+    this._rigidBody.setSize(10, 12)
+    this._rigidBody.setOffset(8, 12)
     this._createAnimations()
     this._playerAnimationHandler.play('idle-down')
     this._defaultBodySize = {
@@ -233,24 +233,34 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
     this._sword.setPosition(this.x, this.y)
   }
 
-  takeDamage(): void {}
+  takeDamage(): void {
+    if (this._hearts > 0) {
+      this._hearts--
+      this._rigidBody.setEnable(false)
+      setTimeout(() => {
+        this._rigidBody.setEnable()
+      }, 500)
+    } else {
+      //muori
+    }
+  }
 
   private attack(): void {
     if (!this._alreadyAttacked) {
       this._swordRigidBody.setEnable()
       this._playerAnimationHandler.playInteraction(`attack-${this._facingDirection}`)
       if (this._facingDirection === 'down') {
-        this._swordRigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height + 15)
-        this._swordRigidBody.setOffset(0, 0)
+        this._swordRigidBody.setSize(this._defaultBodySize.width + 20, this._defaultBodySize.height + 15)
+        this._swordRigidBody.setOffset(-2, 15)
       } else if (this._facingDirection === 'left') {
-        this._swordRigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height + 10)
-        this._swordRigidBody.setOffset(-5, -5)
+        this._swordRigidBody.setSize(this._defaultBodySize.width + 20, this._defaultBodySize.height + 20)
+        this._swordRigidBody.setOffset(-12, 0)
       } else if (this._facingDirection === 'right') {
-        this._swordRigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height + 10)
-        this._swordRigidBody.setOffset(5, -5)
+        this._swordRigidBody.setSize(this._defaultBodySize.width + 20, this._defaultBodySize.height + 20)
+        this._swordRigidBody.setOffset(10, 0)
       } else if (this._facingDirection === 'up') {
-        this._swordRigidBody.setSize(this._defaultBodySize.width + 10, this._defaultBodySize.height + 15)
-        this._swordRigidBody.setOffset(0, -15)
+        this._swordRigidBody.setSize(this._defaultBodySize.width + 20, this._defaultBodySize.height + 15)
+        this._swordRigidBody.setOffset(-2, -10)
       }
       this._alreadyAttacked = true
       setTimeout(() => {
