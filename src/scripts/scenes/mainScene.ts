@@ -1,5 +1,6 @@
 import InputController from '../controllers/InputController'
-import Player from '../objects/Player'
+import Skeleton from '../objects/characters/enemy/Skeleton'
+import Player from '../objects/characters/player/Player'
 import Interactible from '../objects/interactableObjects/Interactable'
 import KeyInteractable from '../objects/interactableObjects/KeyInteractable'
 import Door from '../objects/interactableObjects/LockedDoor'
@@ -7,7 +8,9 @@ import LoreInteractable from '../objects/interactableObjects/LoreInteractable'
 
 export default class MainScene extends Phaser.Scene {
   _player: Player
+  _skeleton: Skeleton
   _mainCamera: Phaser.Cameras.Scene2D.Camera
+  _map: Phaser.Tilemaps.Tilemap
 
   _inputController: InputController
   constructor() {
@@ -19,90 +22,88 @@ export default class MainScene extends Phaser.Scene {
     this._mainCamera = this.cameras.main
     const cameraWidth = this._mainCamera.width
     const cameraHeight = this._mainCamera.height
+    this._map = this.make.tilemap({ key: 'house', tileWidth: 16, tileHeight: 16 })
 
-    this._player = new Player(this, 50, 400)
-
-    const map = this.make.tilemap({ key: 'house', tileWidth: 16, tileHeight: 16 })
-
-    const principale = map.addTilesetImage('principale')
-    const secondario = map.addTilesetImage('secondario')
-    const muri = map.addTilesetImage('muri')
-    const muri2 = map.addTilesetImage('muri2')
-    const FDR_Dungeon = map.addTilesetImage('FDR_Dungeon')
-    const TopDownHouse_FurnitureState1 = map.addTilesetImage('TopDownHouse_FurnitureState1')
-
-    const background = map.createLayer('Livello tile 1', [
-      principale,
-      secondario,
-      muri,
-      muri2,
-      FDR_Dungeon,
-      TopDownHouse_FurnitureState1
-    ])
-    const groundLayer = map.createLayer('pavimento', [
-      principale,
-      secondario,
-      muri,
-      muri2,
-      FDR_Dungeon,
-      TopDownHouse_FurnitureState1
-    ])
-    const wallsLayer = map.createLayer('muri', [
-      principale,
-      secondario,
-      muri,
-      muri2,
-      FDR_Dungeon,
-      TopDownHouse_FurnitureState1
-    ])
-    const scene = map.createLayer('scena', [
-      principale,
-      secondario,
-      muri,
-      muri2,
-      FDR_Dungeon,
-      TopDownHouse_FurnitureState1
-    ])
-    const scene2 = map.createLayer('scena2', [
-      principale,
-      secondario,
-      muri,
-      muri2,
-      FDR_Dungeon,
-      TopDownHouse_FurnitureState1
-    ])
-    const lights = map.createLayer('luci', [
-      principale,
-      secondario,
-      muri,
-      muri2,
-      FDR_Dungeon,
-      TopDownHouse_FurnitureState1
-    ])
-    const _scene = map.createLayer('scena', [
-      principale,
-      secondario,
-      muri,
-      muri2,
-      FDR_Dungeon,
-      TopDownHouse_FurnitureState1
-    ])
-
-    this.physics.world.setBounds(
-      0, //x
-      0, //y
-      map.widthInPixels, //width
-      map.heightInPixels //height
+    this._player = new Player(this, this._map.widthInPixels / 2, this._map.widthInPixels / 2)
+    this._skeleton = new Skeleton(
+      this,
+      this._map.widthInPixels / 2 - 50,
+      this._map.widthInPixels / 2 - 50,
+      this._player
     )
 
-    wallsLayer.setCollisionByProperty({ collides: true })
-    groundLayer.setCollisionByProperty({ collides: true })
-    scene.setCollisionByProperty({ collides: true })
-    scene2.setCollisionByProperty({ collides: true })
-    this.physics.add.collider(this._player, wallsLayer, (_player: any, _tile: any) => {}, undefined, this)
-    this.physics.add.collider(this._player, groundLayer, (_player: any, _tile: any) => {}, undefined, this)
-    this.physics.add.collider(this._player, scene, (_player: any, _tile: any) => {}, undefined, this)
-    this.physics.add.collider(this._player, scene2, (_player: any, _tile: any) => {}, undefined, this)
+    const VictorianInteriors = this._map.addTilesetImage('VictorianInteriors')
+    const floorsandwalls = this._map.addTilesetImage('floorsandwalls')
+    const smallitems = this._map.addTilesetImage('smallitems')
+    const Dungeon = this._map.addTilesetImage('Dungeon')
+    const furniturestate1 = this._map.addTilesetImage('furniturestate1')
+    const FurnitureState2 = this._map.addTilesetImage('FurnitureState2')
+
+    const sfondo = this._map.createLayer('sfondo', [
+      VictorianInteriors,
+      floorsandwalls,
+      smallitems,
+      Dungeon,
+      furniturestate1,
+      FurnitureState2
+    ])
+    const pavimento = this._map.createLayer('pavimento', [
+      VictorianInteriors,
+      floorsandwalls,
+      smallitems,
+      Dungeon,
+      furniturestate1,
+      FurnitureState2
+    ])
+    const muro = this._map.createLayer('muro', [
+      VictorianInteriors,
+      floorsandwalls,
+      smallitems,
+      Dungeon,
+      furniturestate1,
+      FurnitureState2
+    ])
+    const luci = this._map.createLayer('luci', [
+      VictorianInteriors,
+      floorsandwalls,
+      smallitems,
+      Dungeon,
+      furniturestate1,
+      FurnitureState2
+    ])
+    const oggetti2 = this._map.createLayer('oggetti2', [
+      VictorianInteriors,
+      floorsandwalls,
+      smallitems,
+      Dungeon,
+      furniturestate1,
+      FurnitureState2
+    ])
+    const oggetti1 = this._map.createLayer('oggetti1', [
+      VictorianInteriors,
+      floorsandwalls,
+      smallitems,
+      Dungeon,
+      furniturestate1,
+      FurnitureState2
+    ])
+
+    const oggetti3 = this._map.createLayer('oggetti3', [
+      VictorianInteriors,
+      floorsandwalls,
+      smallitems,
+      Dungeon,
+      furniturestate1,
+      FurnitureState2
+    ])
+    muro.setCollisionByProperty({ collides: true })
+    this.physics.add.collider(this._player, muro, (_player: any, _tile: any) => {}, undefined, this)
+    this.physics.add.collider(this._player, oggetti1, (_player: any, _tile: any) => {}, undefined, this)
+    this.physics.add.collider(this._player, oggetti2, (_player: any, _tile: any) => {}, undefined, this)
+    this.physics.add.collider(this._player, oggetti3, (_player: any, _tile: any) => {}, undefined, this)
+    this.physics.add.collider(this._player, luci, (_player: any, _tile: any) => {}, undefined, this)
+    this.physics.add.collider(this._player, pavimento, (_player: any, _tile: any) => {}, undefined, this)
+    this.physics.add.collider(this._player, sfondo, (_player: any, _tile: any) => {}, undefined, this)
 
     this._mainCamera.startFollow(this._player, true, 0.5, 0.5)
   }
@@ -111,5 +112,6 @@ export default class MainScene extends Phaser.Scene {
     this._inputController.getAllInput()
 
     this._player.update(time, delta)
+    this._skeleton.update(time, delta)
   }
 }

@@ -1,4 +1,4 @@
-import Player from '../Player'
+import Player from '../characters/player/Player'
 import Sheet from '../Readables/Sheet'
 import Interactible from './Interactable'
 

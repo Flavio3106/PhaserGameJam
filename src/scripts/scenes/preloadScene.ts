@@ -4,25 +4,28 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    //tileset
-    //this.load.image('dungeon', 'assets/tiles/dungeon-tileset.png')
+    //*tileset
 
-    this.load.image('principale', 'assets/tiles/victorian/16x16-ALL-ASSETS.png')
-    this.load.image('secondario', 'assets/tiles/victorian/16x16-OBJECTS.png')
-    this.load.image('muri', 'assets/tiles/retro-interior/TopDownHouse_FloorsAndWalls.png')
-    this.load.image('muri2', 'assets/tiles/retro-interior/TopDownHouse_DoorsAndWindows.png')
-    this.load.image('FDR_Dungeon', 'assets/tiles/FDR-Dungeon/FDR_Dungeon.png')
-    this.load.image('TopDownHouse_FurnitureState1', 'assets/tiles/retro-interior/TopDownHouse_FurnitureState1.png')
+    this.load.image('VictorianInteriors', 'assets/tiles/victorian/16x16-ALL-ASSETS.png')
+    this.load.image('floorsandwalls', 'assets/tiles/retro-interior/TopDownHouse_FloorsAndWalls.png')
+    this.load.image('smallitems', 'assets/tiles/retro-interior/TopDownHouse_SmallItems.png')
+    this.load.image('Dungeon', 'assets/tiles/FDR-Dungeon/FDR_Dungeon.png')
+    this.load.image('furniturestate1', 'assets/tiles/retro-interior/TopDownHouse_FurnitureState1.png')
+    this.load.image('FurnitureState2', 'assets/tiles/retro-interior/TopDownHouse_FurnitureState2.png')
 
-    //tilemap
-    this.load.tilemapTiledJSON('house', 'assets/map/house.json')
+    //*tilemap
     //this.load.tilemapTiledJSON('dungeon', 'assets/map/dungeon.json')
+    this.load.tilemapTiledJSON('house', 'assets/map/house.json')
 
+    this.load.image('dungeon', 'assets/tiles/dungeon-tileset.png')
     this.load.image('sheet', 'assets/img/sheet.png')
     this.load.image('sheet-icon', 'assets/img/sheet-icon.png')
     this.load.image('close-button', 'assets/img/close-button.png')
     this.load.image('door', 'assets/img/door.png')
     this.load.image('blue-key', 'assets/img/key-blue.png')
+
+    //*bauxite icon
+    this.load.spritesheet('minerals', 'assets/spritesheets/Bauxite/minerals.png', { frameWidth: 16 })
 
     //--------------------------------------
     //*----------------player----------------
@@ -101,6 +104,17 @@ export default class PreloadScene extends Phaser.Scene {
       frameHeight: 24,
       margin: 8,
       spacing: 16
+    })
+
+    //*skeleton
+    this.load.spritesheet('s-idle', 'assets/spritesheets/Skeleton-enemy/Skeleton Idle.png', {
+      frameWidth: 24,
+      frameHeight: 32
+    })
+    this.load.spritesheet('s-run', 'assets/spritesheets/Skeleton-enemy/Skeleton Walk.png', {
+      frameWidth: 18,
+      frameHeight: 33,
+      spacing: 4
     })
   }
 

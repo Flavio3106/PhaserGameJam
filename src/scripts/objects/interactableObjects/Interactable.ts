@@ -2,7 +2,7 @@ import AnimationController from '../../controllers/AnimationController'
 import InputController from '../../controllers/InputController'
 import IInteractable from '../../models/IInteractable'
 import MainScene from '../../scenes/mainScene'
-import Player from '../Player'
+import Player from '../characters/player/Player'
 
 //classe base di un interactable
 export default class Interactable extends Phaser.GameObjects.Sprite implements IInteractable {

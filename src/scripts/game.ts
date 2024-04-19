@@ -3,8 +3,8 @@ import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 import HUDScene from './scenes/HUDScene'
 
-const DEFAULT_WIDTH = 700
-const DEFAULT_HEIGHT = 400
+const DEFAULT_WIDTH = 540
+const DEFAULT_HEIGHT = 270
 
 window.addEventListener('load', () => {
   const game = new Phaser.Game({

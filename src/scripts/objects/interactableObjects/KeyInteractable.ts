@@ -1,4 +1,4 @@
-import Player from '../Player'
+import Player from '../characters/player/Player'
 import Interactible from './Interactable'
 
 export default class KeyInteractable extends Interactible {

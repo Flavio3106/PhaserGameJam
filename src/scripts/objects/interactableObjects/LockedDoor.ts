@@ -1,4 +1,4 @@
-import Player from '../Player'
+import Player from '../characters/player/Player'
 import Interactible from './Interactable'
 import KeyInteractable from './KeyInteractable'
 
