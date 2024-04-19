@@ -24,6 +24,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('door', 'assets/img/door.png')
     this.load.image('blue-key', 'assets/img/key-blue.png')
 
+    //*chest
+    this.load.image('chest', 'assets/img/chest.png')
+
+    //*chest audio
+    this.load.audio('chest-open', 'assets/audio/chests/01_chest_open_1.wav')
     //hearts loading
     //hearts loading
     this.load.spritesheet('heartSprite', 'assets/spritesheets/Hearts/PNG/animated/border/borderHeart.png', {
