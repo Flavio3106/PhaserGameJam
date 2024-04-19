@@ -33,6 +33,9 @@ export default class PreloadScene extends Phaser.Scene {
     //*bauxite icon
     this.load.spritesheet('minerals', 'assets/spritesheets/Bauxite/minerals.png', { frameWidth: 16 })
 
+    //*heart icon
+    this.load.spritesheet('heartsprite', '/assets/spritesheets/hearts/heart_animated_1.png', {frameWidth:17})
+
     //--------------------------------------
     //*----------------player----------------
     //--------------------------------------
