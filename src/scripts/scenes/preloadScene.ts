@@ -4,11 +4,118 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('phaser-logo', 'assets/img/phaser-logo.png')
-    this.load.image('bg-mountains', 'assets/img/bg-mountains.png')
-    this.load.image('bg-trees1', 'assets/img/bg-trees1.png')
-    this.load.image('bg-trees2', 'assets/img/bg-trees2.png')
-    this.load.spritesheet('player-spritesheet', 'assets/img/players.png', { frameWidth: 52, frameHeight: 70 })
+    //*tileset
+
+    this.load.image('VictorianInteriors', 'assets/tiles/victorian/16x16-ALL-ASSETS.png')
+    this.load.image('floorsandwalls', 'assets/tiles/retro-interior/TopDownHouse_FloorsAndWalls.png')
+    this.load.image('smallitems', 'assets/tiles/retro-interior/TopDownHouse_SmallItems.png')
+    this.load.image('Dungeon', 'assets/tiles/FDR-Dungeon/FDR_Dungeon.png')
+    this.load.image('furniturestate1', 'assets/tiles/retro-interior/TopDownHouse_FurnitureState1.png')
+    this.load.image('FurnitureState2', 'assets/tiles/retro-interior/TopDownHouse_FurnitureState2.png')
+
+    //*tilemap
+    //this.load.tilemapTiledJSON('dungeon', 'assets/map/dungeon.json')
+    this.load.tilemapTiledJSON('house', 'assets/map/house.json')
+
+    this.load.image('dungeon', 'assets/tiles/dungeon-tileset.png')
+    this.load.image('sheet', 'assets/img/sheet.png')
+    this.load.image('sheet-icon', 'assets/img/sheet-icon.png')
+    this.load.image('close-button', 'assets/img/close-button.png')
+    this.load.image('door', 'assets/img/door.png')
+    this.load.image('blue-key', 'assets/img/key-blue.png')
+
+    //*bauxite icon
+    this.load.spritesheet('minerals', 'assets/spritesheets/Bauxite/minerals.png', { frameWidth: 16 })
+
+    //--------------------------------------
+    //*----------------player----------------
+    //--------------------------------------
+    //*Idle
+    this.load.spritesheet('p-idle-down', 'assets/spritesheets/RPG_Hero/idle/idle_down_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    this.load.spritesheet('p-idle-left', 'assets/spritesheets/RPG_Hero/idle/idle_left_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    this.load.spritesheet('p-idle-right', 'assets/spritesheets/RPG_Hero/idle/idle_right_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    this.load.spritesheet('p-idle-up', 'assets/spritesheets/RPG_Hero/idle/idle_up_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    //*run
+    this.load.spritesheet('p-run-down', 'assets/spritesheets/RPG_Hero/run/run_down_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    this.load.spritesheet('p-run-left', 'assets/spritesheets/RPG_Hero/run/run_left_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    this.load.spritesheet('p-run-right', 'assets/spritesheets/RPG_Hero/run/run_right_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    this.load.spritesheet('p-run-up', 'assets/spritesheets/RPG_Hero/run/run_up_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    //*attack
+    this.load.spritesheet('p-attack-down', 'assets/spritesheets/RPG_Hero/attack/attack_down_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    this.load.spritesheet('p-attack-left', 'assets/spritesheets/RPG_Hero/attack/attack_left_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    this.load.spritesheet('p-attack-right', 'assets/spritesheets/RPG_Hero/attack/attack_right_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+    this.load.spritesheet('p-attack-up', 'assets/spritesheets/RPG_Hero/attack/attack_up_40x40.png', {
+      frameWidth: 24,
+      frameHeight: 24,
+      margin: 8,
+      spacing: 16
+    })
+
+    //*skeleton
+    this.load.spritesheet('s-idle', 'assets/spritesheets/Skeleton-enemy/Skeleton Idle.png', {
+      frameWidth: 24,
+      frameHeight: 32
+    })
+    this.load.spritesheet('s-run', 'assets/spritesheets/Skeleton-enemy/Skeleton Walk.png', {
+      frameWidth: 18,
+      frameHeight: 33,
+      spacing: 4
+    })
   }
 
   create() {
