@@ -3,6 +3,8 @@ import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 import HUDScene from './scenes/HUDScene'
 import { Scale } from 'phaser'
+import startScene from './scenes/startingScene'
+import startingScene from './scenes/startingScene'
 
 const DEFAULT_WIDTH = 400
 const DEFAULT_HEIGHT = 200
@@ -19,7 +21,7 @@ window.addEventListener('load', () => {
       mode: Scale.FIT,
       zoom: 2
     },
-    scene: [PreloadScene, MainScene, HUDScene],
+    scene: [PreloadScene,startingScene, MainScene, HUDScene],
 
     physics: {
       default: 'arcade',
