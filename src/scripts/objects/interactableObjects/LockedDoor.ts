@@ -32,11 +32,11 @@ export default class Door extends Interactible {
 
   onInteract(): void {
     this.text.alpha = 0
-    if (this.key === this.player._inventory.keySlot) {
+    /*if (this.key === this.player._inventory.keySlot) {
       this.locked = false
       console.log('door unlocked')
     } else {
       console.log('cannot interact')
-    }
+    }*/
   }
 }

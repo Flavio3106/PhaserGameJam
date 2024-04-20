@@ -1,7 +1,7 @@
 import KeyInteractable from '../objects/interactableObjects/KeyInteractable'
 
 export default class Inventory {
-  keySlot?: KeyInteractable
+  keySlot: Array<KeyInteractable> = []
   private _bauxite: number = 0
 
   get bauxite() {

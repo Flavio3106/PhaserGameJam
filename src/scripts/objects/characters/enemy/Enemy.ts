@@ -2,6 +2,7 @@ import AnimationController from '../../../controllers/AnimationController'
 import IEnemy from '../../../models/IEnemy'
 import MainScene from '../../../scenes/mainScene'
 import Player from '../player/Player'
+import Skeleton from './Skeleton'
 
 export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnemy {
   animationController: AnimationController
@@ -24,7 +25,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
     this.wayPoints = []
     this.scene.add.existing(this).setDepth(4)
     this.scene.physics.add.overlap(player._sword, this, (sword, skeleton) => {
-      this.die()
+      ;(skeleton as Skeleton).die()
     })
     this.scene.physics.add.collider(player, this, (playerObj, skeletonObj) => {
       player.takeDamage()
@@ -71,7 +72,6 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
 
         if (currentPoint.x > nextPoint.x) {
           flipX = true
-          this.rigidBody.setOffset(10, 5)
         }
 
         this.scene.tweens.add({

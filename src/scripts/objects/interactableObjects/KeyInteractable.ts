@@ -3,8 +3,6 @@ import Player from '../characters/player/Player'
 import Interactible from './Interactable'
 
 export default class KeyInteractable extends Interactible {
-  hud: HUDScene
-
   constructor(scene: Phaser.Scene, x: number, y: number, player: Player) {
     super(scene, x, y, player, 'key', 99)
   }
@@ -16,14 +14,18 @@ export default class KeyInteractable extends Interactible {
   }
 
   onInteract(): void {
+    if (!this.interacting) {
+      this.setAlpha(0)
+      this.player._inventory.keySlot.push(this)
+    }
     super.onInteract()
-    this.setAlpha(0)
-    this.player._inventory.keySlot = this
   }
 
   onCancel(): void {
+    if (this.interacting) {
+      this.setAlpha(1)
+      this.player._inventory.keySlot.pop()
+    }
     super.onCancel()
-    this.setAlpha(1)
-    this.player._inventory.keySlot = undefined
   }
 }

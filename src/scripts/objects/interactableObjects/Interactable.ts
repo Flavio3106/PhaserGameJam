@@ -78,12 +78,10 @@ export default class Interactable extends Phaser.GameObjects.Sprite implements I
   //chiamata quando si interagisce
   onInteract(): void {
     this.interacting = true
-    this.player._isInteracting = true
   }
 
   //chiamata quando si cancella l'interazione
   onCancel(): void {
     this.interacting = false
-    this.player._isInteracting = false
   }
 }

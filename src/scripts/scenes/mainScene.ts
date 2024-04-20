@@ -14,8 +14,15 @@ export default class MainScene extends Phaser.Scene {
   map: Phaser.Tilemaps.Tilemap
   _chestGroup: Phaser.GameObjects.Group
   _skeletonGroup: Phaser.GameObjects.Group
-  _key: KeyInteractable
-  _sheet: LoreInteractable
+  _key1: KeyInteractable
+  _key2: KeyInteractable
+  _sheet1: LoreInteractable
+  _sheet2: LoreInteractable
+  sheets: LoreInteractable[] = []
+  private enigma1: string =
+    'Dove le ossa si perdono nella penombra, cerca il guardiano silenzioso della porta segreta. Con attenzione, segui il suo sguardo per individuare la chiave.'
+  private enigma2: string =
+    "Nel cuore oscuro delle Catacombe, dove le ombre si fondono con le pareti di pietra, cerca il segno dell'ultimo sacerdote. Là troverai la chiave che apre la via verso la luce"
   player_initial_position: string = 'player_initial_position'
 
   _inputController: InputController
@@ -29,7 +36,8 @@ export default class MainScene extends Phaser.Scene {
     this.map = this.make.tilemap({ key: 'catacombs', tileWidth: 16, tileHeight: 16 })
 
     //-600, 1230
-    this._player = new Player(this, 40, 990)
+    //40, 990
+    this._player = new Player(this, -366, 1601)
     this._skeleton1 = new Skeleton(this, 65, 820, this._player)
     this._skeleton1.addPoints([
       { x: 65, y: 820 },
@@ -40,12 +48,28 @@ export default class MainScene extends Phaser.Scene {
     ])
     this._skeletonGroup = this.add.group()
     this._skeletonGroup.add(this._skeleton1)
+    const skeleton2: Skeleton = new Skeleton(this, -500, 1488, this._player)
+    skeleton2.addPoints([
+      { x: -500, y: 1488 },
+      { x: -262, y: 1488 }
+    ])
+    this._skeletonGroup.add(skeleton2)
+
+    const skeleton3: Skeleton = new Skeleton(this, -384, 1383, this._player)
+    skeleton3.addPoints([
+      { x: -384, y: 1383 },
+      { x: -384, y: 1574 }
+    ])
+    this._skeletonGroup.add(skeleton3)
 
     this._chestGroup = this.add.group()
-    this._key = new KeyInteractable(this, 235, 880, this._player)
-    this._key.setAlpha(0)
-    this._sheet = new LoreInteractable(this, 30, 770, this._player)
-    this._sheet.setAlpha(0)
+    this._key1 = new KeyInteractable(this, 235, 880, this._player)
+    this._key1.setAlpha(0)
+    this._key2 = new KeyInteractable(this, -665, 1530, this._player)
+    this.sheets.push(new LoreInteractable(this, 30, 770, this._player, this.enigma1))
+    this.sheets[0].setAlpha(0)
+    this.sheets.push(new LoreInteractable(this, -410, 1610, this._player, this.enigma2))
+    this.sheets[1].setAlpha(0)
 
     this.setTilemap()
     this._mainCamera.startFollow(this._player, true, 0.5, 0.5)
@@ -93,88 +117,92 @@ export default class MainScene extends Phaser.Scene {
 
     wallsLayer.setCollisionByProperty({ collides: true })
     this.physics.add.collider(this._player, wallsLayer)
+    /*
+    setTilemap(): void {
+      const VictorianInteriors = this._map.addTilesetImage('VictorianInteriors')
+      const floorsandwalls = this._map.addTilesetImage('floorsandwalls')
+      const smallitems = this._map.addTilesetImage('smallitems')
+      const Dungeon = this._map.addTilesetImage('Dungeon')
+      const furniturestate1 = this._map.addTilesetImage('furniturestate1')
+      const FurnitureState2 = this._map.addTilesetImage('FurnitureState2')
+  
+      const sfondo = this._map.createLayer('sfondo', [
+        VictorianInteriors,
+        floorsandwalls,
+        smallitems,
+        Dungeon,
+        furniturestate1,
+        FurnitureState2
+      ])
+      const pavimento = this._map.createLayer('pavimento', [
+        VictorianInteriors,
+        floorsandwalls,
+        smallitems,
+        Dungeon,
+        furniturestate1,
+        FurnitureState2
+      ])
+      const muro = this._map.createLayer('muro', [
+        VictorianInteriors,
+        floorsandwalls,
+        smallitems,
+        Dungeon,
+        furniturestate1,
+        FurnitureState2
+      ])
+      const luci = this._map.createLayer('luci', [
+        VictorianInteriors,
+        floorsandwalls,
+        smallitems,
+        Dungeon,
+        furniturestate1,
+        FurnitureState2
+      ])
+      const oggetti2 = this._map.createLayer('oggetti2', [
+        VictorianInteriors,
+        floorsandwalls,
+        smallitems,
+        Dungeon,
+        furniturestate1,
+        FurnitureState2
+      ])
+      const oggetti1 = this._map.createLayer('oggetti1', [
+        VictorianInteriors,
+        floorsandwalls,
+        smallitems,
+        Dungeon,
+        furniturestate1,
+        FurnitureState2
+      ])
+  
+      const oggetti3 = this._map.createLayer('oggetti3', [
+        VictorianInteriors,
+        floorsandwalls,
+        smallitems,
+        Dungeon,
+        furniturestate1,
+        FurnitureState2
+      ])
+      muro.setCollisionByProperty({ collides: true })
+      this.physics.add.collider(this._player, muro, (_player: any, _tile: any) => {}, undefined, this)
+      this.physics.add.collider(this._player, oggetti1, (_player: any, _tile: any) => {}, undefined, this)
+      this.physics.add.collider(this._player, oggetti2, (_player: any, _tile: any) => {}, undefined, this)
+      this.physics.add.collider(this._player, oggetti3, (_player: any, _tile: any) => {}, undefined, this)
+      this.physics.add.collider(this._player, luci, (_player: any, _tile: any) => {}, undefined, this)
+      this.physics.add.collider(this._player, pavimento, (_player: any, _tile: any) => {}, undefined, this)
+      this.physics.add.collider(this._player, sfondo, (_player: any, _tile: any) => {}, undefined, this)
+    }
+  */
   }
-  /*
-  setTilemap(): void {
-    const VictorianInteriors = this._map.addTilesetImage('VictorianInteriors')
-    const floorsandwalls = this._map.addTilesetImage('floorsandwalls')
-    const smallitems = this._map.addTilesetImage('smallitems')
-    const Dungeon = this._map.addTilesetImage('Dungeon')
-    const furniturestate1 = this._map.addTilesetImage('furniturestate1')
-    const FurnitureState2 = this._map.addTilesetImage('FurnitureState2')
 
-    const sfondo = this._map.createLayer('sfondo', [
-      VictorianInteriors,
-      floorsandwalls,
-      smallitems,
-      Dungeon,
-      furniturestate1,
-      FurnitureState2
-    ])
-    const pavimento = this._map.createLayer('pavimento', [
-      VictorianInteriors,
-      floorsandwalls,
-      smallitems,
-      Dungeon,
-      furniturestate1,
-      FurnitureState2
-    ])
-    const muro = this._map.createLayer('muro', [
-      VictorianInteriors,
-      floorsandwalls,
-      smallitems,
-      Dungeon,
-      furniturestate1,
-      FurnitureState2
-    ])
-    const luci = this._map.createLayer('luci', [
-      VictorianInteriors,
-      floorsandwalls,
-      smallitems,
-      Dungeon,
-      furniturestate1,
-      FurnitureState2
-    ])
-    const oggetti2 = this._map.createLayer('oggetti2', [
-      VictorianInteriors,
-      floorsandwalls,
-      smallitems,
-      Dungeon,
-      furniturestate1,
-      FurnitureState2
-    ])
-    const oggetti1 = this._map.createLayer('oggetti1', [
-      VictorianInteriors,
-      floorsandwalls,
-      smallitems,
-      Dungeon,
-      furniturestate1,
-      FurnitureState2
-    ])
-
-    const oggetti3 = this._map.createLayer('oggetti3', [
-      VictorianInteriors,
-      floorsandwalls,
-      smallitems,
-      Dungeon,
-      furniturestate1,
-      FurnitureState2
-    ])
-    muro.setCollisionByProperty({ collides: true })
-    this.physics.add.collider(this._player, muro, (_player: any, _tile: any) => {}, undefined, this)
-    this.physics.add.collider(this._player, oggetti1, (_player: any, _tile: any) => {}, undefined, this)
-    this.physics.add.collider(this._player, oggetti2, (_player: any, _tile: any) => {}, undefined, this)
-    this.physics.add.collider(this._player, oggetti3, (_player: any, _tile: any) => {}, undefined, this)
-    this.physics.add.collider(this._player, luci, (_player: any, _tile: any) => {}, undefined, this)
-    this.physics.add.collider(this._player, pavimento, (_player: any, _tile: any) => {}, undefined, this)
-    this.physics.add.collider(this._player, sfondo, (_player: any, _tile: any) => {}, undefined, this)
-  }
-*/
   update(time: number, delta: number) {
     this._inputController.getAllInput()
     this._player.update(time, delta)
-    this._key.update(time, delta)
-    this._sheet.update(time, delta)
+    this._key1.update(time, delta)
+    this._key2.update(time, delta)
+    this.sheets.forEach(sheet => {
+      sheet.update(time, delta)
+    })
     this._chestGroup.children.entries.forEach(chest => {
       chest.update()
     })

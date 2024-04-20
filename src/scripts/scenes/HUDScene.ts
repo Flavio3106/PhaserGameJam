@@ -7,7 +7,7 @@ export default class HUDScene extends Phaser.Scene {
     super({ key: 'HUD' })
   }
 
-  private _counter: number = 300
+  private _counter: number = 0
   private _hearts = 5
   private _mainScene: MainScene
   private _player: Player
@@ -17,12 +17,13 @@ export default class HUDScene extends Phaser.Scene {
   private inventory: Inventory
   private keyIcon: Phaser.GameObjects.Image
   private sheet: Phaser.GameObjects.Image
-  private enigmaText: string =
-    "Dove le ossa si perdono nella penombra, cerca il guardiano silenzioso della porta segreta. Con attenzione, segui il suo sguardo per individuare la chiave che apre il passaggio verso l'ignoto."
-  private enigmaObj: Phaser.GameObjects.Text
+
+  private sheetObj: Phaser.GameObjects.Text
   private closeButton: Phaser.GameObjects.Image
   private missionBox: Phaser.GameObjects.Image
   private missionTextObj: Phaser.GameObjects.Text
+  private keysCounter: number = 0
+  private slotLenghtCounter: Phaser.GameObjects.Text
 
   getCounter(): number {
     return this._counter
@@ -50,8 +51,8 @@ export default class HUDScene extends Phaser.Scene {
     this.keySlotPos = { x: keySlot.x, y: keySlot.y }
     //sheet
     this.sheet = this.add.image(320, 100, 'sheet')
-    this.enigmaObj = this.add
-      .text(this.sheet.x - this.sheet.width / 2 + 10, this.sheet.y - this.sheet.height / 2 + 2, `${this.enigmaText}`, {
+    this.sheetObj = this.add
+      .text(this.sheet.x - this.sheet.width / 2 + 10, this.sheet.y - this.sheet.height / 2 + 2, ``, {
         fontSize: '10px',
         fontStyle: 'bold',
         color: 'black',
@@ -64,45 +65,74 @@ export default class HUDScene extends Phaser.Scene {
       .setDepth(5)
     this.closeButton.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
       this.sheet.setAlpha(0)
-      this.enigmaObj.setAlpha(0)
+      this.sheetObj.setAlpha(0)
       this.closeButton.setAlpha(0)
-      this._mainScene._sheet.onCancel()
+      this._mainScene.sheets.forEach(sheet => {
+        if (sheet.isActive) {
+          sheet.onCancel()
+        }
+      })
     })
     this.missionBox = this.add.image(this.cameras.main.width - 50, 0, 'mission')
-    this.missionTextObj = this.add
-      .text(this.missionBox.x - this.missionBox.width / 2 + 2, this.missionBox.y + 2, 'Trova la chiave', {
+    const text = this.add
+      .text(this.missionBox.x - this.missionBox.width / 2 + 2, this.missionBox.y + 2, 'Trova le chiavi', {
         fontSize: '10px',
         fontStyle: 'bold',
-        color: 'black',
+        color: 'grey',
+        fontFamily: 'Roboto',
+        wordWrap: { width: 90 }
+      })
+      .setResolution(20)
+    this.missionTextObj = this.add
+      .text(text.x, text.y + 10, `${this.keysCounter}/2`, {
+        fontSize: '10px',
+        fontStyle: 'bold',
+        color: 'grey',
         fontFamily: 'Roboto',
         wordWrap: { width: 90 }
       })
       .setResolution(20)
     this.sheet.setAlpha(0)
-    this.enigmaObj.setAlpha(0)
+    this.sheetObj.setAlpha(0)
     this.closeButton.setAlpha(0)
+    this.slotLenghtCounter = this.add
+      .text(keySlot.x + keySlot.width - 5, keySlot.y - keySlot.height / 2, `${this.keysCounter}/2`, {
+        fontSize: '10px',
+        fontStyle: 'bold',
+        color: 'white',
+        fontFamily: 'Roboto',
+        wordWrap: { width: 90 }
+      })
+      .setResolution(20)
   }
 
   update(time: number, delta: number): void {
+    this.keysCounter = this.inventory.keySlot.length
+
     this._hearts = this._player._hearts
     this._heartsImage.forEach(heart => {
       heart.destroy()
     })
     this._heartsImage = []
     this.renderHearts()
-    if (this.inventory.keySlot && !this.slotOccupied) {
-      this.missionTextObj.text = 'Chiave trovata'
+    this.missionTextObj.text = `${this.keysCounter}/2`
+    this.slotLenghtCounter.text = `${this.keysCounter}/2`
+    if (this.inventory.keySlot.length !== 0) {
       this.keyIcon = this.add.image(this.keySlotPos.x, this.keySlotPos.y, 'key', 99)
-      this.slotOccupied = true
     }
     if (!this.inventory.keySlot && this.slotOccupied) {
       this.keyIcon.destroy()
       this.slotOccupied = false
     }
     if (this._mainScene._player._reading) {
-      this.sheet.setAlpha(1)
-      this.enigmaObj.setAlpha(1)
-      this.closeButton.setAlpha(1)
+      this._mainScene.sheets.forEach(sheet => {
+        if (sheet.isActive) {
+          this.sheetObj.text = sheet.sheetText
+          this.sheet.setAlpha(1)
+          this.sheetObj.setAlpha(1)
+          this.closeButton.setAlpha(1)
+        }
+      })
     }
   }
 
