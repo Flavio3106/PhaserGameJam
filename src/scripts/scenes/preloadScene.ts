@@ -55,11 +55,14 @@ export default class PreloadScene extends Phaser.Scene {
     //*chiave
     this.load.spritesheet('key', 'assets/img/Dungeon_Tileset.png', { frameWidth: 16 })
 
-    //* background UI 
+    //* background UI
     this.load.image('background', '/assets/ImagesUI/DEDALUS.png')
 
     //* start button
     this.load.image('startButton', '/assets/ImagesUI/Start.png')
+
+    //*tema
+    this.load.audio('main', 'assets/audio/mainTheme.mp3')
 
     //--------------------------------------
     //*----------------player----------------
@@ -157,13 +160,10 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   create() {
-    
-    
     this.scene.stop('PreloadScene')
-    
+
     this.scene.start('startingScene')
-    
-    
+
     /**
      * This is how you would dynamically import the mainScene class (with code splitting),
      * add the mainScene to the Scene Manager
