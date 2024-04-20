@@ -6,7 +6,7 @@ export default class KeyInteractable extends Interactible {
   hud: HUDScene
 
   constructor(scene: Phaser.Scene, x: number, y: number, player: Player) {
-    super(scene, x, y, player, 'chest')
+    super(scene, x, y, player, 'key', 99)
   }
   update(time: number, delta: number): void {
     super.update(time, delta)

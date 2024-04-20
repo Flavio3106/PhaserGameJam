@@ -10,7 +10,7 @@ export default class Interactable extends Phaser.GameObjects.Sprite implements I
   inputController: InputController
   mainScene: MainScene
   text: Phaser.GameObjects.Text
-  minDistance: number = 25
+  minDistance: number = 35
   rigidBody: Phaser.Physics.Arcade.Body
 
   interacting: boolean = false

@@ -46,6 +46,15 @@ export default class PreloadScene extends Phaser.Scene {
     //*inventory
     this.load.image('inventory-slot', 'assets/spritesheets/ui/inventory-slot.png')
 
+    //*sheet
+    this.load.image('sheet', 'assets/img/sheet.png')
+
+    //*mission
+    this.load.image('mission', 'assets/img/mission.png')
+
+    //*chiave
+    this.load.spritesheet('key', 'assets/img/Dungeon_Tileset.png', { frameWidth: 16 })
+
     //--------------------------------------
     //*----------------player----------------
     //--------------------------------------

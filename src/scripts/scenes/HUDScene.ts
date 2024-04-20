@@ -16,6 +16,13 @@ export default class HUDScene extends Phaser.Scene {
   private slotOccupied: boolean = false
   private inventory: Inventory
   private keyIcon: Phaser.GameObjects.Image
+  private sheet: Phaser.GameObjects.Image
+  private enigmaText: string =
+    "Dove le ossa si perdono nella penombra, cerca il guardiano silenzioso della porta segreta. Con attenzione, segui il suo sguardo per individuare la chiave che apre il passaggio verso l'ignoto."
+  private enigmaObj: Phaser.GameObjects.Text
+  private closeButton: Phaser.GameObjects.Image
+  private missionBox: Phaser.GameObjects.Image
+  private missionTextObj: Phaser.GameObjects.Text
 
   getCounter(): number {
     return this._counter
@@ -39,8 +46,41 @@ export default class HUDScene extends Phaser.Scene {
         fontFamily: 'Roboto'
       })
       .setResolution(20)
-    const keySlot = this.add.image(10, 190, 'inventory-slot')
+    const keySlot = this.add.image(200, 180, 'inventory-slot')
     this.keySlotPos = { x: keySlot.x, y: keySlot.y }
+    //sheet
+    this.sheet = this.add.image(320, 100, 'sheet')
+    this.enigmaObj = this.add
+      .text(this.sheet.x - this.sheet.width / 2 + 10, this.sheet.y - this.sheet.height / 2 + 2, `${this.enigmaText}`, {
+        fontSize: '10px',
+        fontStyle: 'bold',
+        color: 'black',
+        fontFamily: 'Roboto',
+        wordWrap: { width: 90 }
+      })
+      .setResolution(20)
+    this.closeButton = this.add
+      .image(this.sheet.x + this.sheet.width / 2 - 2, this.sheet.y - this.sheet.height / 2 + 5, 'close-button')
+      .setDepth(5)
+    this.closeButton.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+      this.sheet.setAlpha(0)
+      this.enigmaObj.setAlpha(0)
+      this.closeButton.setAlpha(0)
+      this._mainScene._sheet.onCancel()
+    })
+    this.missionBox = this.add.image(this.cameras.main.width - 50, 0, 'mission')
+    this.missionTextObj = this.add
+      .text(this.missionBox.x - this.missionBox.width / 2 + 2, this.missionBox.y + 2, 'Trova la chiave', {
+        fontSize: '10px',
+        fontStyle: 'bold',
+        color: 'black',
+        fontFamily: 'Roboto',
+        wordWrap: { width: 90 }
+      })
+      .setResolution(20)
+    this.sheet.setAlpha(0)
+    this.enigmaObj.setAlpha(0)
+    this.closeButton.setAlpha(0)
   }
 
   update(time: number, delta: number): void {
@@ -51,12 +91,18 @@ export default class HUDScene extends Phaser.Scene {
     this._heartsImage = []
     this.renderHearts()
     if (this.inventory.keySlot && !this.slotOccupied) {
-      this.keyIcon = this.add.image(this.keySlotPos.x, this.keySlotPos.y, 'chest')
+      this.missionTextObj.text = 'Chiave trovata'
+      this.keyIcon = this.add.image(this.keySlotPos.x, this.keySlotPos.y, 'key', 99)
       this.slotOccupied = true
     }
     if (!this.inventory.keySlot && this.slotOccupied) {
       this.keyIcon.destroy()
       this.slotOccupied = false
+    }
+    if (this._mainScene._player._reading) {
+      this.sheet.setAlpha(1)
+      this.enigmaObj.setAlpha(1)
+      this.closeButton.setAlpha(1)
     }
   }
 
