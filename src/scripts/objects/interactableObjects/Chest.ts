@@ -4,7 +4,7 @@ import Interactable from './Interactable'
 export default class Chest extends Interactable {
   isOpen: boolean = false
   constructor(scene: Phaser.Scene, x: number, y: number, player: Player) {
-    super(scene, x, y, player, 'chest')
+    super(scene, x, y, player, 'FDR_Dungeon', 643)
   }
 
   open(): void {

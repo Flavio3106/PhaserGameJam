@@ -31,8 +31,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('Tiled6', 'assets/tiles/TilesetUtilizzati/Skull 004 16x161.png')
     this.load.image('Tiled7', 'assets/tiles/TilesetUtilizzati/Skulls(SpriteShee)(Dark outline1.png')
 
-    //*chest
-    this.load.image('chest', 'assets/img/chest.png')
+    //*chest643
+    this.load.spritesheet('FDR_Dungeon', 'assets/tiles/TilesetUtilizzati/FDR_Dungeon.png', { frameWidth: 16 })
 
     //*chest audio
     this.load.audio('chest-open', 'assets/audio/chests/01_chest_open_1.wav')

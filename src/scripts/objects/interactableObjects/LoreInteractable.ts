@@ -8,7 +8,7 @@ export default class LoreInteractable extends Interactible {
   hudScene: HUDScene
   sheetText: string = ''
   constructor(scene: Phaser.Scene, x: number, y: number, player: Player, sheetText: string) {
-    super(scene, x, y, player, 'chest')
+    super(scene, x, y, player, 'key')
     this.sheetText = sheetText
   }
 

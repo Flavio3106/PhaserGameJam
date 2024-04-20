@@ -7,7 +7,7 @@ export default class HUDScene extends Phaser.Scene {
     super({ key: 'HUD' })
   }
 
-  private _counter: number = 0
+  private _bauxiteCounter: number = 0
   private _hearts = 5
   private _mainScene: MainScene
   private _player: Player
@@ -24,13 +24,14 @@ export default class HUDScene extends Phaser.Scene {
   private missionTextObj: Phaser.GameObjects.Text
   private keysCounter: number = 0
   private slotLenghtCounter: Phaser.GameObjects.Text
+  private bauxiteCounterObj: Phaser.GameObjects.Text
 
   getCounter(): number {
-    return this._counter
+    return this._bauxiteCounter
   }
 
   public updateCounter(quantity: number): void {
-    this._counter = quantity
+    this._bauxiteCounter = quantity
   }
 
   create() {
@@ -40,8 +41,8 @@ export default class HUDScene extends Phaser.Scene {
     this._player = this._mainScene._player
 
     const mineral = this.add.image(10, 27, 'minerals', 7).setScale(0.88)
-    this.add
-      .text(mineral.x + 10, mineral.y - mineral.height / 2, `${this._counter}`, {
+    this.bauxiteCounterObj = this.add
+      .text(mineral.x + 10, mineral.y - mineral.height / 2, `${this._bauxiteCounter}`, {
         fontSize: '10px',
         fontStyle: 'bold',
         fontFamily: 'Roboto'
@@ -107,6 +108,11 @@ export default class HUDScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number): void {
+    if (this._bauxiteCounter !== this.inventory.bauxite) {
+      this.inventory.addBauxite()
+      this._bauxiteCounter = this.inventory.bauxite
+      this.bauxiteCounterObj.text = `${this._bauxiteCounter}`
+    }
     this.keysCounter = this.inventory.keySlot.length
 
     this._hearts = this._player._hearts

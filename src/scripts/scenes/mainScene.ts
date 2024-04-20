@@ -34,39 +34,44 @@ export default class MainScene extends Phaser.Scene {
     this._inputController = new InputController(this)
     this._mainCamera = this.cameras.main
     this.map = this.make.tilemap({ key: 'catacombs', tileWidth: 16, tileHeight: 16 })
+    this._player = new Player(this, 100, 680)
 
-    //-600, 1230
-    //40, 990
-    this._player = new Player(this, -366, 1601)
-    this._skeleton1 = new Skeleton(this, 65, 820, this._player)
-    this._skeleton1.addPoints([
-      { x: 65, y: 820 },
-      { x: 135, y: 860 },
-      { x: 245, y: 855 },
-      { x: 135, y: 860 },
-      { x: 65, y: 820 }
-    ])
+    //*Skeletons
     this._skeletonGroup = this.add.group()
-    this._skeletonGroup.add(this._skeleton1)
-    const skeleton2: Skeleton = new Skeleton(this, -500, 1488, this._player)
-    skeleton2.addPoints([
-      { x: -500, y: 1488 },
-      { x: -262, y: 1488 }
-    ])
-    this._skeletonGroup.add(skeleton2)
+    this._skeletonGroup.add(
+      new Skeleton(this, 65, 820, this._player, [
+        { x: 65, y: 820 },
+        { x: 135, y: 860 },
+        { x: 245, y: 855 },
+        { x: 135, y: 860 },
+        { x: 65, y: 820 }
+      ])
+    )
+    this._skeletonGroup.add(
+      new Skeleton(this, -500, 1488, this._player, [
+        { x: -500, y: 1488 },
+        { x: -262, y: 1488 }
+      ])
+    )
 
-    const skeleton3: Skeleton = new Skeleton(this, -384, 1383, this._player)
-    skeleton3.addPoints([
-      { x: -384, y: 1383 },
-      { x: -384, y: 1574 }
-    ])
-    this._skeletonGroup.add(skeleton3)
+    this._skeletonGroup.add(
+      new Skeleton(this, -384, 1383, this._player, [
+        { x: -384, y: 1383 },
+        { x: -384, y: 1574 }
+      ])
+    )
 
-    this._chestGroup = this.add.group()
-    this._key1 = new KeyInteractable(this, 235, 880, this._player)
-    this._key1.setAlpha(0)
+    this._skeletonGroup.add(
+      new Skeleton(this, 200, 625, this._player, [
+        { x: 200, y: 625 },
+        { x: 260, y: 685 },
+        { x: 140, y: 685 }
+      ])
+    )
+
+    this._key1 = new KeyInteractable(this, 250, 300, this._player)
     this._key2 = new KeyInteractable(this, -665, 1530, this._player)
-    this.sheets.push(new LoreInteractable(this, 30, 770, this._player, this.enigma1))
+    this.sheets.push(new LoreInteractable(this, 750, 210, this._player, this.enigma1))
     this.sheets[0].setAlpha(0)
     this.sheets.push(new LoreInteractable(this, -410, 1610, this._player, this.enigma2))
     this.sheets[1].setAlpha(0)
@@ -85,16 +90,10 @@ export default class MainScene extends Phaser.Scene {
     const Tiled7 = this.map.addTilesetImage('Tiled7')
 
     const backgroundLayer = this.map.createLayer('Sfondo', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
-    backgroundLayer.setPosition(
-      backgroundLayer.x - backgroundLayer.width / 2,
-      backgroundLayer.y - backgroundLayer.y / 2
-    )
+
     const groundLayer = this.map.createLayer('Pavimento', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
-    groundLayer.setPosition(groundLayer.x - groundLayer.width / 2, groundLayer.y + groundLayer.height / 2)
     const scene1Layer = this.map.createLayer('Scena', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
-    scene1Layer.setPosition(scene1Layer.x - scene1Layer.width / 2, scene1Layer.y + scene1Layer.height / 2)
     const wallsLayer = this.map.createLayer('Muri', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
-    wallsLayer.setPosition(wallsLayer.x - wallsLayer.width / 2, wallsLayer.y + wallsLayer.height / 2)
     const openedDoorsLayer = this.map.createLayer('PorteAperte', [
       Tiled1,
       Tiled2,
@@ -104,19 +103,23 @@ export default class MainScene extends Phaser.Scene {
       Tiled6,
       Tiled7
     ])
-    openedDoorsLayer.setPosition(
-      openedDoorsLayer.x - openedDoorsLayer.width / 2,
-      openedDoorsLayer.y + openedDoorsLayer.height / 2
-    )
-    const scene2Layer = this.map.createLayer('Scena2', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
-    scene2Layer.setPosition(scene2Layer.x - scene2Layer.width / 2, scene2Layer.y + scene2Layer.height / 2)
-    const scene3Layer = this.map.createLayer('scena3', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
-    scene3Layer.setPosition(scene3Layer.x - scene3Layer.width / 2, scene3Layer.y + backgroundLayer.height / 2)
 
+    const scene2Layer = this.map.createLayer('Scena2', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
+    const scene3Layer = this.map.createLayer('scena3', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
+
+    const chestsLayer = this.map.getObjectLayer('Chests')
+    this._chestGroup = this.add.group()
+
+    chestsLayer.objects.forEach(chestTile => {
+      this._chestGroup.add(
+        new Chest(this, chestTile.x! + chestTile.width! / 2, chestTile.y! + chestTile.width! / 2, this._player)
+      )
+    })
     //
 
     wallsLayer.setCollisionByProperty({ collides: true })
     this.physics.add.collider(this._player, wallsLayer)
+
     /*
     setTilemap(): void {
       const VictorianInteriors = this._map.addTilesetImage('VictorianInteriors')

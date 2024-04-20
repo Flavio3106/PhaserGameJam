@@ -14,7 +14,15 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
   private wayPoints: { x: number; y: number }[] = []
   canGo: boolean = true
 
-  constructor(scene: Phaser.Scene, x: number, y: number, assetName: string, player: Player, frame?: number | string) {
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    assetName: string,
+    player: Player,
+    waypoints: { x: number; y: number }[],
+    frame?: number | string
+  ) {
     super(scene, x, y, assetName, frame)
     this.player = player
     this.mainScene = scene as MainScene
@@ -22,7 +30,9 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
     this.scene.physics.world.enableBody(this)
     this.rigidBody = <Phaser.Physics.Arcade.Body>this.body
 
-    this.wayPoints = []
+    if (waypoints) {
+      this.wayPoints = waypoints
+    }
     this.scene.add.existing(this).setDepth(4)
     this.scene.physics.add.overlap(player._sword, this, (sword, skeleton) => {
       ;(skeleton as Skeleton).die()
@@ -52,9 +62,9 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
     const moveNext = () => {
       if (this.dead) {
         if (!this.deadAnimationFinished) {
-          this.scene.tweens.killAll()
           this.animationController.play('dead', { ignoreIfPlaying: true })
           this.deadAnimationFinished = true
+          this.canGo = false
         }
         return
       }
@@ -74,7 +84,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
           flipX = true
         }
 
-        this.scene.tweens.add({
+        const tween = this.scene.tweens.add({
           targets: this,
           x: nextPoint.x,
           y: nextPoint.y,
@@ -83,6 +93,11 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
           onStart: () => {
             this.animationController.play('run')
             this.setFlipX(flipX)
+          },
+          onUpdate: () => {
+            if (this.dead) {
+              tween.stop()
+            }
           },
           onComplete: () => {
             this.animationController.play('idle')

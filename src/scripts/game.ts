@@ -21,7 +21,7 @@ window.addEventListener('load', () => {
       mode: Scale.FIT,
       zoom: 2
     },
-    scene: [PreloadScene,startingScene, MainScene, HUDScene],
+    scene: [PreloadScene, startingScene, MainScene, HUDScene],
 
     physics: {
       default: 'arcade',
