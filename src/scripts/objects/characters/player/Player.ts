@@ -51,7 +51,6 @@ export default class Player extends Phaser.GameObjects.Sprite implements IPlayer
     if (this._inputController.isAttacking) {
       this.attack()
     }
-    console.log(this.x, +' ' + this.y)
   }
 
   create(): void {

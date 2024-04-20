@@ -37,7 +37,7 @@ export default class Interactable extends Phaser.GameObjects.Sprite implements I
       .text(this.x, this.y - 1, 'Interagisci[E]', {
         color: 'black',
         fontSize: '10px',
-        fontFamily: 'Pixelify'
+        fontFamily: 'Roboto'
       })
       .setDepth(5)
 

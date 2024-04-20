@@ -35,6 +35,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.sound.volume = 0.25
     this._inputController = new InputController(this)
     this.enigmaMap = new Map()
     this.enigmaMap.set(
@@ -107,7 +108,7 @@ export default class MainScene extends Phaser.Scene {
 
   spawnKeys(): void {
     this.keysLayer.objects.forEach(key => {
-      this._keyGroup.add(new KeyInteractable(this, key.x!, key.x!, this._player))
+      this._keyGroup.add(new KeyInteractable(this, key.x!, key.y!, this._player).setAlpha(1))
     })
   }
 
@@ -241,7 +242,6 @@ export default class MainScene extends Phaser.Scene {
 
     this._keyGroup.children.entries.forEach(key => {
       key.update()
-      ;(key as KeyInteractable).setPosition(this._player.x, this._player.y)
     })
     this._sheetGroup.children.entries.forEach(sheet => {
       sheet.update()
