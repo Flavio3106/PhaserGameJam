@@ -1,4 +1,5 @@
 import Player from '../objects/characters/player/Player'
+import LoreInteractable from '../objects/interactableObjects/LoreInteractable'
 import Inventory from '../ui/Inventory'
 import MainScene from './mainScene'
 
@@ -68,9 +69,9 @@ export default class HUDScene extends Phaser.Scene {
       this.sheet.setAlpha(0)
       this.sheetObj.setAlpha(0)
       this.closeButton.setAlpha(0)
-      this._mainScene.sheets.forEach(sheet => {
-        if (sheet.isActive) {
-          sheet.onCancel()
+      this._mainScene._sheetGroup.children.entries.forEach(sheet => {
+        if ((sheet as LoreInteractable).isActive) {
+          ;(sheet as LoreInteractable).onCancel()
         }
       })
     })
@@ -131,9 +132,9 @@ export default class HUDScene extends Phaser.Scene {
       this.slotOccupied = false
     }
     if (this._mainScene._player._reading) {
-      this._mainScene.sheets.forEach(sheet => {
-        if (sheet.isActive) {
-          this.sheetObj.text = sheet.sheetText
+      this._mainScene._sheetGroup.children.entries.forEach(sheet => {
+        if ((sheet as LoreInteractable).isActive) {
+          this.sheetObj.text = (sheet as LoreInteractable).sheetText
           this.sheet.setAlpha(1)
           this.sheetObj.setAlpha(1)
           this.closeButton.setAlpha(1)

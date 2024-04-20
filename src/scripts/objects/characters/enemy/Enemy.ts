@@ -16,14 +16,12 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite implements IEnem
 
   constructor(
     scene: Phaser.Scene,
-    x: number,
-    y: number,
     assetName: string,
     player: Player,
     waypoints: { x: number; y: number }[],
     frame?: number | string
   ) {
-    super(scene, x, y, assetName, frame)
+    super(scene, waypoints[0].x, waypoints[0].y, assetName, frame)
     this.player = player
     this.mainScene = scene as MainScene
     this.animationController = new AnimationController(scene, this)

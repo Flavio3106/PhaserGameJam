@@ -47,6 +47,18 @@ export default class InputController {
 
   //calcola gli input del movimento
   private getMovementInput(): void {
+    if (this._cursors.right.isUp) {
+      this._xVelocity = 0
+    }
+    if (this._cursors.left.isUp) {
+      this._xVelocity = 0
+    }
+    if (this._cursors.up.isUp) {
+      this._yVelocity = 0
+    }
+    if (this._cursors.down.isUp) {
+      this._yVelocity = 0
+    }
     if (this._cursors.right.isDown) {
       this._xVelocity = 1
     }
@@ -59,6 +71,7 @@ export default class InputController {
     if (this._cursors.down.isDown) {
       this._yVelocity = 1
     }
+    //*
 
     if (
       !this._cursors.left.isDown &&

@@ -9,75 +9,116 @@ import LoreInteractable from '../objects/interactableObjects/LoreInteractable'
 
 export default class MainScene extends Phaser.Scene {
   _player: Player
-  _skeleton1: Skeleton
   _mainCamera: Phaser.Cameras.Scene2D.Camera
+
+  //Tilemap
   map: Phaser.Tilemaps.Tilemap
+  //Layers
+  chestsLayer: Phaser.Tilemaps.ObjectLayer
+  keysLayer: Phaser.Tilemaps.ObjectLayer
+  sheetsLayer: Phaser.Tilemaps.ObjectLayer
+
+  //groups
   _chestGroup: Phaser.GameObjects.Group
   _skeletonGroup: Phaser.GameObjects.Group
-  _key1: KeyInteractable
-  _key2: KeyInteractable
-  _sheet1: LoreInteractable
-  _sheet2: LoreInteractable
-  sheets: LoreInteractable[] = []
-  private enigma1: string =
-    'Dove le ossa si perdono nella penombra, cerca il guardiano silenzioso della porta segreta. Con attenzione, segui il suo sguardo per individuare la chiave.'
-  private enigma2: string =
-    "Nel cuore oscuro delle Catacombe, dove le ombre si fondono con le pareti di pietra, cerca il segno dell'ultimo sacerdote. Là troverai la chiave che apre la via verso la luce"
-  player_initial_position: string = 'player_initial_position'
+  _keyGroup: Phaser.GameObjects.Group
+  _sheetGroup: Phaser.GameObjects.Group
 
+  //enigmas texts
+  private enigmaMap: Map<string, string>
+
+  //inputController
   _inputController: InputController
+
   constructor() {
     super({ key: 'MainScene' })
   }
 
   create() {
     this._inputController = new InputController(this)
+    this.enigmaMap = new Map()
+    this.enigmaMap.set(
+      'enigma1',
+      'Dove le ossa si perdono nella penombra, cerca il guardiano silenzioso della porta segreta. Con attenzione, segui il suo sguardo per individuare la chiave.'
+    )
+    this.enigmaMap.set(
+      'enigma2',
+      "Nel cuore oscuro delle Catacombe, dove le ombre si fondono con le pareti di pietra, cerca il segno dell'ultimo sacerdote. Là troverai la chiave che apre la via verso la luce"
+    )
     this._mainCamera = this.cameras.main
     this.map = this.make.tilemap({ key: 'catacombs', tileWidth: 16, tileHeight: 16 })
     this._player = new Player(this, 100, 680)
 
-    //*Skeletons
+    //*Groups
     this._skeletonGroup = this.add.group()
-    this._skeletonGroup.add(
-      new Skeleton(this, 65, 820, this._player, [
-        { x: 65, y: 820 },
-        { x: 135, y: 860 },
-        { x: 245, y: 855 },
-        { x: 135, y: 860 },
-        { x: 65, y: 820 }
-      ])
-    )
-    this._skeletonGroup.add(
-      new Skeleton(this, -500, 1488, this._player, [
-        { x: -500, y: 1488 },
-        { x: -262, y: 1488 }
-      ])
-    )
-
-    this._skeletonGroup.add(
-      new Skeleton(this, -384, 1383, this._player, [
-        { x: -384, y: 1383 },
-        { x: -384, y: 1574 }
-      ])
-    )
-
-    this._skeletonGroup.add(
-      new Skeleton(this, 200, 625, this._player, [
-        { x: 200, y: 625 },
-        { x: 260, y: 685 },
-        { x: 140, y: 685 }
-      ])
-    )
-
-    this._key1 = new KeyInteractable(this, 250, 300, this._player)
-    this._key2 = new KeyInteractable(this, -665, 1530, this._player)
-    this.sheets.push(new LoreInteractable(this, 750, 210, this._player, this.enigma1))
-    this.sheets[0].setAlpha(0)
-    this.sheets.push(new LoreInteractable(this, -410, 1610, this._player, this.enigma2))
-    this.sheets[1].setAlpha(0)
+    this._chestGroup = this.add.group()
+    this._keyGroup = this.add.group()
+    this._sheetGroup = this.add.group()
 
     this.setTilemap()
+    this.spawnSkeletons()
+    this.spawnChests()
+    this.spawnKeys()
+    this.spawnSheets()
+
     this._mainCamera.startFollow(this._player, true, 0.5, 0.5)
+  }
+
+  spawnSkeletons(): void {
+    this._skeletonGroup.add(
+      new Skeleton(this, this._player, [
+        { x: 335, y: 1100 },
+        { x: 335, y: 820 }
+      ])
+    )
+
+    this._skeletonGroup.add(
+      new Skeleton(this, this._player, [
+        { x: 275, y: 1665 },
+        { x: 425, y: 1665 }
+      ])
+    )
+
+    this._skeletonGroup.add(
+      new Skeleton(this, this._player, [
+        { x: 525, y: 662 },
+        { x: 578, y: 662 },
+        { x: 578, y: 707 },
+        { x: 520, y: 707 }
+      ])
+    )
+    this._skeletonGroup.add(
+      new Skeleton(this, this._player, [
+        { x: 578, y: 707 },
+        { x: 520, y: 707 },
+        { x: 525, y: 662 },
+        { x: 578, y: 662 }
+      ])
+    )
+  }
+
+  spawnChests(): void {
+    this.chestsLayer.objects.forEach(chestTile => {
+      this._chestGroup.add(
+        new Chest(this, chestTile.x! + chestTile.width! / 2, chestTile.y! + chestTile.width! / 2, this._player)
+      )
+    })
+  }
+
+  spawnKeys(): void {
+    this.keysLayer.objects.forEach(key => {
+      this._keyGroup.add(new KeyInteractable(this, key.x!, key.x!, this._player))
+    })
+  }
+
+  spawnSheets(): void {
+    let index = 0
+    this.sheetsLayer.objects.forEach(sheet => {
+      index++
+      this._sheetGroup.add(
+        new LoreInteractable(this, sheet.x!, sheet.y!, this._player, this.enigmaMap.get(`enigma${index}`)!)
+      )
+    })
   }
 
   setTilemap(): void {
@@ -107,14 +148,10 @@ export default class MainScene extends Phaser.Scene {
     const scene2Layer = this.map.createLayer('Scena2', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
     const scene3Layer = this.map.createLayer('scena3', [Tiled1, Tiled2, Tiled3, Tiled4, Tiled5, Tiled6, Tiled7])
 
-    const chestsLayer = this.map.getObjectLayer('Chests')
-    this._chestGroup = this.add.group()
+    this.chestsLayer = this.map.getObjectLayer('Chests')
+    this.keysLayer = this.map.getObjectLayer('Chiavi')
+    this.sheetsLayer = this.map.getObjectLayer('Enigmi')
 
-    chestsLayer.objects.forEach(chestTile => {
-      this._chestGroup.add(
-        new Chest(this, chestTile.x! + chestTile.width! / 2, chestTile.y! + chestTile.width! / 2, this._player)
-      )
-    })
     //
 
     wallsLayer.setCollisionByProperty({ collides: true })
@@ -201,10 +238,13 @@ export default class MainScene extends Phaser.Scene {
   update(time: number, delta: number) {
     this._inputController.getAllInput()
     this._player.update(time, delta)
-    this._key1.update(time, delta)
-    this._key2.update(time, delta)
-    this.sheets.forEach(sheet => {
-      sheet.update(time, delta)
+
+    this._keyGroup.children.entries.forEach(key => {
+      key.update()
+      ;(key as KeyInteractable).setPosition(this._player.x, this._player.y)
+    })
+    this._sheetGroup.children.entries.forEach(sheet => {
+      sheet.update()
     })
     this._chestGroup.children.entries.forEach(chest => {
       chest.update()

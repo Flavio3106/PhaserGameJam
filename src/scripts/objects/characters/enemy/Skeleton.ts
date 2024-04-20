@@ -6,8 +6,8 @@ export default class Skeleton extends Enemy {
   static _skeletonRunKey: string = 's-run'
   static _skeletonDeadKey: string = 's-dead'
 
-  constructor(scene: Phaser.Scene, x: number, y: number, player: Player, waypoints: { x: number; y: number }[]) {
-    super(scene, x, y, 's-idle', player, waypoints, 0)
+  constructor(scene: Phaser.Scene, player: Player, waypoints: { x: number; y: number }[]) {
+    super(scene, 's-idle', player, waypoints, 0)
     this.rigidBody.setSize(this.rigidBody.width - 15, this.rigidBody.height - 10)
     this.rigidBody.setOffset(5, 5)
     this.create()
