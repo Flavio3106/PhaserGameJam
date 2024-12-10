@@ -28,16 +28,6 @@ export default class MainScene extends Phaser.Scene {
     this.map = this.make.tilemap({ key: 'catacombs', tileWidth: 16, tileHeight: 16 })
 
     this._player = new Player(this, -600, 1230)
-    this._skeleton1 = new Skeleton(this, this._player.x + 50, this._player.y, this._player)
-    this._skeleton1.addPoints([
-      { x: this._player.x + 50, y: this._player.y },
-      { x: this._player.x + 100, y: this._player.y },
-      { x: this._player.x + 100, y: this._player.y - 200 },
-      { x: this._player.x + 100, y: this._player.y },
-      { x: this._player.x + 50, y: this._player.y }
-    ])
-    this._skeletonGroup = this.add.group()
-    this._skeletonGroup.add(this._skeleton1)
 
     this._chestGroup = this.add.group()
     this._key = new KeyInteractable(this, this._player.x + 30, this._player.y, this._player)
@@ -171,9 +161,6 @@ export default class MainScene extends Phaser.Scene {
     this._key.update(time, delta)
     this._chestGroup.children.entries.forEach(chest => {
       chest.update()
-    })
-    this._skeletonGroup.children.entries.forEach(skeleton => {
-      skeleton.update(time, delta)
     })
   }
 }
